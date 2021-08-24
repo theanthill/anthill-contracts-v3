@@ -8,10 +8,24 @@ import "../core/LiquidityStakingHelper.sol";
 
 contract ETHANTLPHelper is LiquidityStakingHelper {
     constructor(
-        IERC20 token0,
-        IERC20 token1,
-        IERC20 lpToken,
-        IStakingPoolDelegated lpTokenPool,
-        IPancakeRouter02 pancakeRouter
-    ) LiquidityStakingHelper(token0, token1, lpToken, lpTokenPool, pancakeRouter) {}
+        IERC20 token0_,
+        IERC20 token1_,
+        uint160 sqrtPriceX96Lower_,
+        uint160 sqrtPriceX96Upper_,
+        uint24 fee_,
+        INonfungiblePositionManager positionManager_,
+        IUniswapV3Staker poolStaker_,
+        IPoolStakerV3WithRewards stakerHelper_
+    )
+        LiquidityStakingHelper(
+            token0_,
+            token1_,
+            sqrtPriceX96Lower_,
+            sqrtPriceX96Upper_,
+            fee_,
+            positionManager_,
+            poolStaker_,
+            stakerHelper_
+        )
+    {}
 }

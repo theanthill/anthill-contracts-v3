@@ -23,10 +23,26 @@ const LIQUIDITY_FEE = 3000;
 
 // Real networks with already deployed Swaps and BUSD
 const LOCAL_NETWORKS = ['dev'];
-const TEST_NETWORKS = ['bsc-testnet', 'bsc-local-testnet', 'eth-ropsten', 'eth-local-ropsten', 'arbitrum-testnet'];
+const TEST_NETWORKS = [
+    'bsc-testnet',
+    'bsc-local-testnet',
+    'eth-ropsten',
+    'eth-local-ropsten',
+    'eth-rinkeby',
+    'eth-local-rinkeby',
+    'arbitrum-testnet',
+];
 const MAIN_NETWORKS = ['bsc-mainnet', 'bsc-local-mainnet', 'eth-mainnet', 'eth-local-mainnet'];
 const BSC_NETWORKS = ['bsc-testnet', 'bsc-local-testnet', 'bsc-mainnet', 'bsc-local-mainnet'];
-const ETH_NETWORKS = ['eth-ropsten', 'eth-local-ropsten', 'eth-mainnet', 'eth-local-mainnet', 'arbitrum-testnet'];
+const ETH_NETWORKS = [
+    'eth-ropsten',
+    'eth-local-ropsten',
+    'eth-rinkeby',
+    'eth-local-rinkeby',
+    'eth-mainnet',
+    'eth-local-mainnet',
+    'arbitrum-testnet',
+];
 
 module.exports = {
     POOL_START_DATE,

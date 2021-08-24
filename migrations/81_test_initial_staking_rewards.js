@@ -14,7 +14,7 @@ const RewardsDistributor = artifacts.require('RewardsDistributor');
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
     // Test only
-    if (network.includes(MAIN_NETWORKS)) {
+    /*if (network.includes(MAIN_NETWORKS)) {
         return;
     }
 
@@ -31,5 +31,5 @@ module.exports = async (deployer, network, accounts) => {
     await antToken.transfer(distributor.address, antRewardAllocationAmount);
 
     console.log(`Distributing rewards to all staking pools.`);
-    await distributor.distribute();
+    await distributor.distribute();*/
 };

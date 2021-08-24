@@ -31,6 +31,10 @@ async function runGanache(network, blocktime) {
             ganacheArgs.push(
                 ...['-f', 'https://ropsten.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1', '--chainId', '3']
             );
+        case 'eth-local-rinkeby':
+            ganacheArgs.push(
+                ...['-f', 'https://rinkeby.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1', '--chainId', '3']
+            );
             break;
     }
 

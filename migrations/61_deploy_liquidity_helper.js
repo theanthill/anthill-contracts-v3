@@ -10,7 +10,8 @@ const AntToken = artifacts.require('AntToken');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
-    const antToken = await AntToken.deployed();
+    // TODO
+    /*const antToken = await AntToken.deployed();
 
     const swapFactory = await getSwapFactory(network);
     const swapRouter = await getSwapRouter(network);
@@ -40,5 +41,5 @@ module.exports = async (deployer, network, accounts) => {
 
         console.log(`Assigning liquidity helper as ANT/${pool.otherToken} staking pool operator`);
         await poolContract.transferOperator(liquidityHelper.address);
-    }
+    }*/
 };

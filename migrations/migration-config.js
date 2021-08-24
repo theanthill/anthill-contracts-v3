@@ -10,7 +10,7 @@ const MAX_ANTS_SUPPLY = 21000000;
 
 // ANT-BUSD LP Tokens pool that generate ANT Token rewards
 const ANTBUSDLPTokenPool = {
-    contractName: 'BUSDANTLPTokenANTPool',
+    contractName: 'BUSDANTPoolStakerANT',
     helperContract: 'BUSDANTLPHelper',
     mainToken: 'AntToken',
     otherToken: 'BUSD',
@@ -26,7 +26,7 @@ const ANTBNBLPTokenPool = {
 
 // ANT-ETH LP Tokens pool that generate ANT Token rewards
 const ANTETHLPTokenPool = {
-    contractName: 'ETHANTLPTokenANTPool',
+    contractName: 'ETHANTPoolStakerANT',
     helperContract: 'ETHANTLPHelper',
     mainToken: 'AntToken',
     otherToken: 'ETH',

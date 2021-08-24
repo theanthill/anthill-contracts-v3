@@ -62,7 +62,7 @@ async function migration(deployer, network, accounts) {
     }
 
     // Band Oracle
-    if (LOCAL_NETWORKS.includes(network)) {
+    if (!MAIN_NETWORKS.includes(network)) {
         await deployer.deploy(MockBandOracle);
     }
 

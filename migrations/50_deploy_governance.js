@@ -41,9 +41,10 @@ async function migration(deployer, network, accounts) {
 
     // Get the ANT/BUSD pair
     const ANTBUSDPair = await swapFactory.getPool(antToken.address, BUSD.address, LIQUIDITY_FEE);
+    console.log('ANTBUSDPair - ' + ANTBUSDPair);
 
     // Deploy all governance contracts
-    await deployer.deploy(Boardroom, antToken.address, antShare.address, {gas: 100000000});
+    await deployer.deploy(Boardroom, antToken.address, antShare.address);
     await deployer.deploy(Oracle, ANTBUSDPair, ORACLE_PERIOD, ORACLE_START_DATE, bandOracle.address);
     await deployer.deploy(ContributionPool);
     await deployer.deploy(
@@ -55,8 +56,7 @@ async function migration(deployer, network, accounts) {
         Boardroom.address,
         ContributionPool.address,
         TREASURY_START_DATE,
-        TREASURY_PERIOD,
-        {gas: 100000000}
+        TREASURY_PERIOD
     );
 
     // Timelocks
