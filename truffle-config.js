@@ -91,9 +91,26 @@ module.exports = {
             timeoutBlocks: 200,
             skipDryRun: true,
         },
+        'eth-local-rinkeby': {
+            host: '127.0.0.1',
+            port: 8545,
+            network_id: 4,
+            skipDryRun: true,
+        },
+        'eth-rinkeby': {
+            provider: () =>
+                new HDWalletProvider(ropstenMnemonic, `https://rinkeby.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1`),
+            network_id: 4,
+            gas: 5500000,
+            gasPrice: 15000000000,
+            confirmations: 2,
+            timeoutBlocks: 200,
+            skipDryRun: true,
+        },
         'arbitrum-testnet': {
             network_id: 421611,
-            gas: 286676080,
+            //gas: 287983320,
+            gas: 1287983320,
             provider: function () {
                 return new HDWalletProvider({
                     mnemonic: {

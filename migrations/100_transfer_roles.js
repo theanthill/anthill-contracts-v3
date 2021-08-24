@@ -26,7 +26,7 @@ const RewardsDistributor = artifacts.require('RewardsDistributor');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
-    treasury = await Treasury.deployed();
+    /*treasury = await Treasury.deployed();
     treasuryTimelock = await TreasuryTimelock.deployed();
     operatorTimelock = await OperatorTimelock.deployed();
 
@@ -73,6 +73,7 @@ module.exports = async (deployer, network, accounts) => {
     }
 
     await assignAdmin('Admin Account', adminAccount, adminContracts);
+    */
 };
 
 // ============ Helper Functions ============

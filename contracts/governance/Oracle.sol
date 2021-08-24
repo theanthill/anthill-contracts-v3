@@ -6,6 +6,7 @@ pragma solidity ^0.8.0;
 */
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 import "../libraries/PancakeOracleLibrary.sol";
 import "../libraries/FixedPoint.sol";
@@ -45,7 +46,7 @@ contract Oracle is IOracle, EpochCounter {
     string constant EXTERNAL_ORACLE_QUOTE = "USDC";
 
     // Immutables
-    IPancakePair public immutable pair;
+    IUniswapV3Pool public immutable pool;
     address public immutable token0;
     address public immutable token1;
     IStdReference public immutable bandOracle;
@@ -60,22 +61,22 @@ contract Oracle is IOracle, EpochCounter {
     FixedPoint.uq112x112 public price1Average;
 
     constructor(
-        IPancakePair _pair,
+        IUniswapV3Pool _pool,
         uint256 _period,
         uint256 _startTime,
         IStdReference _bandOracle
     ) EpochCounter(_period, _startTime, 0) {
-        pair = _pair;
+        pool = _pool;
 
-        token0 = _pair.token0();
-        token1 = _pair.token1();
+        token0 = _pool.token0();
+        token1 = _pool.token1();
 
         bandOracle = _bandOracle;
 
-        price0CumulativeLast = _pair.price0CumulativeLast();
-        price1CumulativeLast = _pair.price1CumulativeLast();
+        //price0CumulativeLast = _pair.price0CumulativeLast();
+        //price1CumulativeLast = _pair.price1CumulativeLast();
 
-        (, , blockTimestampLast) = _pair.getReserves();
+        //(, , blockTimestampLast) = _pair.getReserves();
     }
 
     /** 
@@ -85,7 +86,7 @@ contract Oracle is IOracle, EpochCounter {
     */
     function update() external override checkEpoch {
         // Obtain the TWAP for the latest block
-        (uint256 price0Cumulative, uint256 price1Cumulative, uint32 blockTimestamp) = PancakeOracleLibrary
+        /*(uint256 price0Cumulative, uint256 price1Cumulative, uint32 blockTimestamp) = PancakeOracleLibrary
         .currentCumulativePrices(address(pair));
         uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
 
@@ -98,7 +99,7 @@ contract Oracle is IOracle, EpochCounter {
         price1CumulativeLast = price1Cumulative;
         blockTimestampLast = blockTimestamp;
 
-        emit Updated(price0CumulativeLast, price1CumulativeLast);
+        emit Updated(price0CumulativeLast, price1CumulativeLast);*/
     }
 
     /**

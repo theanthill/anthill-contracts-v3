@@ -7,6 +7,7 @@ const {LOCAL_NETWORKS, MAIN_NETWORKS} = require('../deploy.config.js');
 const PositionManager = artifacts.require('INonfungiblePositionManager');
 const SwapFactory = artifacts.require('IUniswapV3Factory');
 const SwapRouter = artifacts.require('ISwapRouter');
+const PoolStaker = artifacts.require('IUniswapV3Staker');
 const MockBUSD = artifacts.require('MockBUSD');
 const MockBNB = artifacts.require('MockBNB');
 const MockETH = artifacts.require('MockETH');
@@ -16,16 +17,20 @@ const AntToken = artifacts.require('AntToken');
 const AntShare = artifacts.require('AntShare');
 const AntBond = artifacts.require('AntBond');
 
-async function getPositionManager(network) {
-    return await PositionManager.at(knownContracts.PositionManager[network]);
-}
-
 async function getSwapFactory(network) {
     return await SwapFactory.at(knownContracts.SwapFactory[network]);
 }
 
 async function getSwapRouter(network) {
     return await SwapRouter.at(knownContracts.SwapRouter[network]);
+}
+
+async function getPositionManager(network) {
+    return await PositionManager.at(knownContracts.PositionManager[network]);
+}
+
+async function getPoolStaker(network) {
+    return await PoolStaker.at(knownContracts.PoolStaker[network]);
 }
 
 async function getBUSD(network) {
@@ -65,8 +70,10 @@ async function getTokenContract(tokenName, network) {
 }
 
 module.exports = {
+    getPositionManager,
     getSwapFactory,
     getSwapRouter,
+    getPoolStaker,
     getBUSD,
     getBNB,
     getETH,

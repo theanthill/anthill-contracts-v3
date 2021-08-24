@@ -18,6 +18,7 @@ const Oracle = artifacts.require('Oracle');
 
 // ============ Main Migration ============
 async function migration(deployer, network, accounts) {
+    /*
     // Test only
     if (network.includes(MAIN_NETWORKS)) {
         return;
@@ -34,6 +35,7 @@ async function migration(deployer, network, accounts) {
         console.log(`Liquidity for the ${pool.mainToken}/${pool.otherToken} staking pool`);
         await addLiquidity(network, accounts[0], pool, swapRouter, bandOracle, TEST_ANT_LIQUIDITY_PER_POOL);
     }
+    */
 }
 
 // ============ Helper Functions ============

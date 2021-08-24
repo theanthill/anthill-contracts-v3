@@ -9,7 +9,7 @@ const RewardsDistributor = artifacts.require('RewardsDistributor');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
-    const antToken = await AntToken.deployed();
+    /*const antToken = await AntToken.deployed();
 
     const poolsConfig = BSC_NETWORKS.includes(network) ? INITIAL_BSC_DEPLOYMENT_POOLS : INITIAL_ETH_DEPLOYMENT_POOLS;
 
@@ -25,5 +25,5 @@ module.exports = async (deployer, network, accounts) => {
 
         const pool = await poolContract.deployed();
         await pool.transferRewardsDistributor(distributor.address);
-    }
+    }*/
 };

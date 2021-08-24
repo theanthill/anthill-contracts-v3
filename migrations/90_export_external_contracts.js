@@ -5,7 +5,7 @@ const {getSwapFactory, getSwapRouter, getTokenContract, getBUSD, getBNB, getETH}
 const {exportContract, exportToken} = require('./export-contracts');
 
 const {INITIAL_BSC_DEPLOYMENT_POOLS, INITIAL_ETH_DEPLOYMENT_POOLS} = require('./migration-config');
-const {BSC_NETWORKS} = require('../deploy.config');
+const {BSC_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
@@ -28,8 +28,8 @@ module.exports = async (deployer, network, accounts) => {
         const mainToken = await getTokenContract(pool.mainToken, network);
         const otherToken = await getTokenContract(pool.otherToken, network);
 
-        const pairAddress = await swapFactory.getPair(mainToken.address, otherToken.address);
-        console.log(`${pool.mainToken}-${pool.otherToken} at ${pairAddress}`);
-        exportToken(pool.mainToken + '-' + pool.otherToken, pairAddress, 18);
+        const poolAddress = await swapFactory.getPool(mainToken.address, otherToken.address, LIQUIDITY_FEE);
+        console.log(`${pool.mainToken}-${pool.otherToken} at ${poolAddress}`);
+        exportToken(pool.mainToken + '-' + pool.otherToken, poolAddress, 18);
     }
 };
