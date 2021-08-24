@@ -2,11 +2,10 @@
  * Creates the pairs contracts for the liquidity pools. This is needed because the Oracle will need
  * the pair contract already existing when its constructor is executed
  */
-const {BigNumber} = require('bignumber.js');
-
 const {INITIAL_BSC_DEPLOYMENT_POOLS, INITIAL_ETH_DEPLOYMENT_POOLS} = require('./migration-config');
 const {BSC_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config');
 const {getTokenContract, getSwapFactory} = require('./external-contracts');
+const {encodeSqrtRatioX96} = require('./helper_functions');
 
 // ============ Contracts ============
 const AntToken = artifacts.require('AntToken');
@@ -35,14 +34,6 @@ async function migration(deployer, network, accounts) {
         const sqrtPriceX96 = encodeSqrtRatioX96(1.0, 1.0);
         await uniswapPool.initialize(sqrtPriceX96);
     }
-}
-
-function encodeSqrtRatioX96(amount1, amount0) {
-    const shiftAmount = BigNumber(2).pow(192);
-    const numerator = BigNumber(amount1).times(shiftAmount);
-    const denominator = BigNumber(amount0);
-    const ratioX192 = numerator.div(denominator);
-    return ratioX192.sqrt();
 }
 
 module.exports = migration;
