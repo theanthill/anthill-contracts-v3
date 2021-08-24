@@ -35,6 +35,10 @@ const ANTETHLPTokenPool = {
 const INITIAL_BSC_DEPLOYMENT_POOLS = [ANTBUSDLPTokenPool, ANTBNBLPTokenPool];
 const INITIAL_ETH_DEPLOYMENT_POOLS = [ANTBUSDLPTokenPool, ANTETHLPTokenPool];
 
+// Price range for the liquidity pools
+const PRICE_LOWER = 0.9;
+const PRICE_UPPER = 1.1;
+
 // System accounts
 //
 // [workerant] Set the final values before mainnet deployment
@@ -88,6 +92,8 @@ module.exports = {
     TREASURY_ACCOUNT,
     OPERATOR_ACCOUNT,
     ADMIN_ACCOUNT,
+    PRICE_LOWER,
+    PRICE_UPPER,
     // TEST
     TEST_TREASURY_ACCOUNT,
     TEST_OPERATOR_ACCOUNT,

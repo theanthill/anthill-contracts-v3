@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 /**
-    Helper for providing liquidity to a the ANT-ETH pool
+    Helper for providing liquidity to a the ANT-BUSD pool
  */
 import "../core/LiquidityStakingHelper.sol";
 
-contract ETHANTLPHelper is LiquidityStakingHelper {
+contract BUSDANTPoolHelper is LiquidityStakingHelper {
     constructor(
         IERC20 token0_,
         IERC20 token1_,
