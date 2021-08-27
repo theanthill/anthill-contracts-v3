@@ -8,6 +8,12 @@ function encodeSqrtRatioX96(amount1, amount0) {
     return ratioX192.sqrt();
 }
 
+function getDisplayBalance(amount) {
+    const unit = BigNumber(10 ** 18);
+    return amount.div(unit).toFormat(2);
+}
+
 module.exports = {
     encodeSqrtRatioX96,
+    getDisplayBalance,
 };

@@ -2,7 +2,6 @@
  * Creation of the LP Token Staking pools for the supported pairs
  */
 const {getTokenContract, getSwapFactory, getPositionManager, getPoolStaker} = require('./external-contracts');
-const {POOL_START_DATE} = require('../deploy.config.js');
 const {
     INITIAL_BSC_DEPLOYMENT_POOLS,
     INITIAL_ETH_DEPLOYMENT_POOLS,
@@ -20,14 +19,13 @@ module.exports = async (deployer, network, accounts) => {
     const antToken = await AntToken.deployed();
 
     const YEAR = 365 * 86400;
-    const Now = Math.round(Date.now() / 1000);
+    const Now = Math.round(Date.now() / 1000) + 300; // Add 300 seconds so we can create the incentive on time
     const YearFromNow = Now + YEAR;
 
     const initialDeploymentPools = BSC_NETWORKS.includes(network)
         ? INITIAL_BSC_DEPLOYMENT_POOLS
         : INITIAL_ETH_DEPLOYMENT_POOLS;
 
-    console.log(`PoolStaker at ${poolStaker}`);
     console.log(`PoolStaker at ${poolStaker.address}`);
     for (let pool of initialDeploymentPools) {
         const otherToken = await getTokenContract(pool.otherToken, network);
