@@ -54,7 +54,7 @@ module.exports = async (deployer, network, accounts) => {
             poolContract.address
         );
 
-        //console.log(`Assigning liquidity helper as ANT/${pool.otherToken} staking pool operator`);
-        //await poolContract.transferOperator(liquidityHelper.address);
+        console.log(`Assigning liquidity helper as ANT/${pool.otherToken} staking pool operator`);
+        await poolContract.transferOperator(liquidityHelper.address);
     }
 };

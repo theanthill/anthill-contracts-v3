@@ -4,32 +4,45 @@
  */
 const BigNumber = require('bignumber.js');
 
-const {MAIN_NETWORKS} = require('../deploy.config.js');
-const {TEST_REWARDS_DISTRIBUTOR_ALLOCATION} = require('./migration-config');
+const {MAIN_NETWORKS, BSC_NETWORKS} = require('../deploy.config.js');
+const {getPoolStaker} = require('./external-contracts.js');
+const {
+    TEST_REWARD_PER_STAKING_POOL,
+    INITIAL_BSC_DEPLOYMENT_POOLS,
+    INITIAL_ETH_DEPLOYMENT_POOLS,
+} = require('./migration-config');
+const {getDisplayBalance} = require('./helper_functions');
 
 // ============ Contracts ============
 const AntToken = artifacts.require('AntToken');
-const RewardsDistributor = artifacts.require('RewardsDistributor');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
     // Test only
-    /*if (network.includes(MAIN_NETWORKS)) {
+    if (network.includes(MAIN_NETWORKS)) {
         return;
     }
 
-    const unit = BigNumber(10 ** 18);
-    const antRewardAllocationAmount = unit.times(TEST_REWARDS_DISTRIBUTOR_ALLOCATION);
-
     const antToken = await AntToken.deployed();
-    const distributor = await RewardsDistributor.deployed();
+    const PoolStaker = await getPoolStaker(network);
+    const initialDeploymentPools = BSC_NETWORKS.includes(network)
+        ? INITIAL_BSC_DEPLOYMENT_POOLS
+        : INITIAL_ETH_DEPLOYMENT_POOLS;
 
-    // Mint enough ANT Tokens for the distributor
-    await antToken.mint(accounts[0], antRewardAllocationAmount);
+    const unit = BigNumber(10 ** 18);
+    const rewardPerPool = unit.times(TEST_REWARD_PER_STAKING_POOL);
+    const totalReward = rewardPerPool.times(initialDeploymentPools.length);
 
-    console.log(`Depositing ${TEST_REWARDS_DISTRIBUTOR_ALLOCATION} Ant Tokens to RewardsDistributor.`);
-    await antToken.transfer(distributor.address, antRewardAllocationAmount);
+    for (let pool of initialDeploymentPools) {
+        const poolContract = artifacts.require(pool.contractName);
+        const deployedPool = await poolContract.deployed();
 
-    console.log(`Distributing rewards to all staking pools.`);
-    await distributor.distribute();*/
+        console.log(`Minting ${getDisplayBalance(rewardPerPool)} ANT Tokens for rewards`);
+        await antToken.mint(deployedPool.address, rewardPerPool);
+
+        console.log(
+            `Creating incentive of ${getDisplayBalance(rewardPerPool)} ANT tokens for ${pool.contractName} pool`
+        );
+        await deployedPool.createIncentive(rewardPerPool);
+    }
 };

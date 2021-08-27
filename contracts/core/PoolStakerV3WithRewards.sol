@@ -6,9 +6,11 @@ pragma solidity ^0.8.0;
     to the holder
  */
 
-import "../interfaces/IUniswapV3Staker.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
+
+import "../access/OperatorAccessControl.sol";
+import "../interfaces/IUniswapV3Staker.sol";
 
 abstract contract IPoolStakerV3WithRewards {
     function createIncentive(uint256 rewardAmount) external virtual;
@@ -20,7 +22,7 @@ abstract contract IPoolStakerV3WithRewards {
     function claimReward(address to, uint256 tokenId) external virtual returns (uint256 reward);
 }
 
-contract PoolStakerV3WithRewards {
+contract PoolStakerV3WithRewards is OperatorAccessControl {
     IUniswapV3Staker poolStaker;
     IUniswapV3Pool public pool;
     IERC20Minimal public rewardToken;
@@ -48,20 +50,21 @@ contract PoolStakerV3WithRewards {
 
     function createIncentive(uint256 rewardAmount) external {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        rewardToken.approve(address(poolStaker), rewardAmount);
         poolStaker.createIncentive(key, rewardAmount);
     }
 
-    function stakeToken(uint256 tokenId) external {
+    function stakeToken(uint256 tokenId) external onlyOperator {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         poolStaker.stakeToken(key, tokenId);
     }
 
-    function unstakeToken(uint256 tokenId) external {
+    function unstakeToken(uint256 tokenId) external onlyOperator {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         poolStaker.unstakeToken(key, tokenId);
     }
 
-    function claimReward(address to, uint256 tokenId) external returns (uint256 reward) {
+    function claimReward(address to, uint256 tokenId) external onlyOperator returns (uint256 reward) {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         (uint256 amountRequired, ) = poolStaker.getRewardInfo(key, tokenId);
         reward = poolStaker.claimReward(key.rewardToken, to, amountRequired);

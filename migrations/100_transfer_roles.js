@@ -22,11 +22,10 @@ const AntShare = artifacts.require('AntShare');
 const TreasuryTimelock = artifacts.require('TreasuryTimelock');
 const OperatorTimelock = artifacts.require('OperatorTimelock');
 const ContributionPool = artifacts.require('ContributionPool');
-const RewardsDistributor = artifacts.require('RewardsDistributor');
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {
-    /*treasury = await Treasury.deployed();
+    treasury = await Treasury.deployed();
     treasuryTimelock = await TreasuryTimelock.deployed();
     operatorTimelock = await OperatorTimelock.deployed();
 
@@ -35,34 +34,15 @@ module.exports = async (deployer, network, accounts) => {
     await assignOperator(Treasury.contractName, treasury.address, [AntToken, AntShare, AntBond, Boardroom]);
 
     console.log(`Assigning Treasury Timelock contract governance roles`);
-    await assignOperator(TreasuryTimelock.contractName, treasuryTimelock.address, [
-        ContributionPool,
-        RewardsDistributor,
-    ]);
+    await assignOperator(TreasuryTimelock.contractName, treasuryTimelock.address, [ContributionPool]);
 
     console.log(`Assigning Operator Timelock contract governance roles`);
     await assignOperator(OperatorTimelock.contractName, operatorTimelock.address, [Treasury]);
 
-    console.log(`Assigning Treasury account governance roles`);
-    if (network.includes(MAIN_NETWORKS)) {
-        await assignOperator('Treasury account', TREASURY_ACCOUNT, [RewardsDistributor]);
-    } else {
-        await assignOperator('Treasury account', TEST_TREASURY_ACCOUNT, [RewardsDistributor]);
-    }
-
     // Admin
     console.log(`Assigning Admin role`);
     const adminAccount = network.includes(MAIN_NETWORKS) ? ADMIN_ACCOUNT : TEST_ADMIN_ACCOUNT;
-    let adminContracts = [
-        AntToken,
-        AntShare,
-        AntBond,
-        Treasury,
-        Boardroom,
-        TreasuryTimelock,
-        ContributionPool,
-        RewardsDistributor,
-    ];
+    let adminContracts = [AntToken, AntShare, AntBond, Treasury, Boardroom, TreasuryTimelock, ContributionPool];
 
     const initialDeploymentPools = BSC_NETWORKS.includes(network)
         ? INITIAL_BSC_DEPLOYMENT_POOLS
@@ -73,7 +53,6 @@ module.exports = async (deployer, network, accounts) => {
     }
 
     await assignAdmin('Admin Account', adminAccount, adminContracts);
-    */
 };
 
 // ============ Helper Functions ============

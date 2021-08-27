@@ -12,6 +12,7 @@ const {
 } = require('./migration-config');
 const {BSC_NETWORKS} = require('../deploy.config');
 const {getTokenContract, getSwapRouter, getBandOracle} = require('./external-contracts');
+const {getDisplayBalance} = require('./helper_functions');
 
 // ============ Contracts ============
 const Oracle = artifacts.require('Oracle');
@@ -96,11 +97,6 @@ async function approveIfNot(token, owner, spender, amount) {
 function deadline() {
     // 30 minutes
     return Math.floor(new Date().getTime() / 1000) + 1800;
-}
-
-function getDisplayBalance(amount) {
-    const unit = BigNumber(10 ** 18);
-    return amount.div(unit).toFormat(2);
 }
 
 module.exports = migration;

@@ -40,12 +40,12 @@ async function migration(deployer, network, accounts) {
     const BUSD = await getBUSD(network);
 
     // Get the ANT/BUSD pair
-    const ANTBUSDPair = await swapFactory.getPool(antToken.address, BUSD.address, LIQUIDITY_FEE);
-    console.log('ANTBUSDPair - ' + ANTBUSDPair);
+    const ANTBUSDPool = await swapFactory.getPool(antToken.address, BUSD.address, LIQUIDITY_FEE);
+    console.log('ANTBUSD Pool Address - ' + ANTBUSDPool);
 
     // Deploy all governance contracts
     await deployer.deploy(Boardroom, antToken.address, antShare.address);
-    await deployer.deploy(Oracle, ANTBUSDPair, ORACLE_PERIOD, ORACLE_START_DATE, bandOracle.address);
+    await deployer.deploy(Oracle, ANTBUSDPool, ORACLE_PERIOD, ORACLE_START_DATE, bandOracle.address);
     await deployer.deploy(ContributionPool);
     await deployer.deploy(
         Treasury,
