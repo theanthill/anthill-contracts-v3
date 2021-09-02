@@ -31,7 +31,6 @@ module.exports = async (deployer, network, accounts) => {
 
     const unit = BigNumber(10 ** 18);
     const rewardPerPool = unit.times(TEST_REWARD_PER_STAKING_POOL);
-    const totalReward = rewardPerPool.times(initialDeploymentPools.length);
 
     for (let pool of initialDeploymentPools) {
         const poolContract = artifacts.require(pool.contractName);
