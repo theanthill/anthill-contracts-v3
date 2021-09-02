@@ -5,7 +5,7 @@
 const {INITIAL_BSC_DEPLOYMENT_POOLS, INITIAL_ETH_DEPLOYMENT_POOLS} = require('./migration-config');
 const {BSC_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config');
 const {getTokenContract, getSwapFactory} = require('./external-contracts');
-const {encodeSqrtRatioX96} = require('./helper_functions');
+const {encodeSqrtRatioX96} = require('../utils/helperFunctions');
 
 // ============ Contracts ============
 const AntToken = artifacts.require('AntToken');

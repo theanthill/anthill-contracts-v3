@@ -11,7 +11,7 @@ const {
     INITIAL_BSC_DEPLOYMENT_POOLS,
     INITIAL_ETH_DEPLOYMENT_POOLS,
 } = require('./migration-config');
-const {getDisplayBalance} = require('./helper_functions');
+const {getDisplayBalance} = require('../utils/helperFunctions');
 
 // ============ Contracts ============
 const AntToken = artifacts.require('AntToken');

@@ -4,7 +4,7 @@
  */
 const BigNumber = require('bignumber.js');
 
-const {MAIN_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config.js');
+const {MAIN_NETWORKS} = require('../deploy.config.js');
 const {
     TEST_ANT_LIQUIDITY_PER_POOL,
     INITIAL_BSC_DEPLOYMENT_POOLS,
@@ -12,7 +12,7 @@ const {
 } = require('./migration-config');
 const {BSC_NETWORKS} = require('../deploy.config');
 const {getTokenContract, getBandOracle, getPositionManager} = require('./external-contracts');
-const {getDisplayBalance} = require('./helper_functions');
+const {getDisplayBalance} = require('../utils/helperFunctions');
 
 // ============ Contracts ============
 const Oracle = artifacts.require('Oracle');

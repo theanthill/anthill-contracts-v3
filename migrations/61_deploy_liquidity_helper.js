@@ -3,16 +3,10 @@
  */
 const JSBI = require('jsbi');
 
-const {
-    getTokenContract,
-    getSwapFactory,
-    getSwapRouter,
-    getPositionManager,
-    getPoolStaker,
-} = require('./external-contracts');
-const {encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS} = require('./helper_functions');
+const {getTokenContract, getPositionManager, getPoolStaker} = require('./external-contracts');
+const {encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS} = require('../utils/helperFunctions');
 
-const {getTickAtSqrtRatio} = require('./TickMath.js');
+const {getTickAtSqrtRatio} = require('../utils/TickMath');
 
 const {
     INITIAL_BSC_DEPLOYMENT_POOLS,
