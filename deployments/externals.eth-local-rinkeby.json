@@ -1,25 +1,22 @@
 {
   "BUSD": {
-    "address": "0xD97EEc8de6f5a6466574a7705F1e663A5e1529BF",
+    "address": "0x4FE2a7A81a3762156abD5528077FD1CCf649229a",
     "decimals": 18
   },
   "BNB": {
-    "address": "0x2bCe69b4F6dE6FF504ce68424d933608BaEDB19e",
+    "address": "0x1832BdA1D304523aBFDAAaE56725a484a15FFa5D",
     "decimals": 18
   },
   "ETH": {
-    "address": "0x8d478E4DBd05DB17fD375D0888c42Bc438029234",
+    "address": "0x6d9bE09f98384CD557AaF76e0A078a97E11f37bF",
     "decimals": 18
   },
-  "PancakeRouter": {
-    "address": "0xE592427A0AEce92De3Edee1F18E0157C05861564"
-  },
   "AntToken-BUSD": {
-    "address": "0xFC74c5A8002ACb292638cf1240361E2cc9a6c99B",
+    "address": "0x39B0CAF8b5792f4488Fe656eB6e7c05eF3C6f3DF",
     "decimals": 18
   },
   "AntToken-ETH": {
-    "address": "0xa210571B74D42B65ba5Fc0950316bF0c6444e392",
+    "address": "0xD13f004dDdD22281979eA579A723d02A8621A5a4",
     "decimals": 18
   }
 }

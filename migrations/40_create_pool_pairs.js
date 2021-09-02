@@ -31,8 +31,8 @@ async function migration(deployer, network, accounts) {
 
         const uniswapPool = await UniswapPool.at(poolAddress);
 
-        const sqrtPriceX96 = encodeSqrtRatioX96(1.0, 1.0);
-        await uniswapPool.initialize(sqrtPriceX96);
+        const sqrtPriceX96 = encodeSqrtRatioX96(1, 1);
+        await uniswapPool.initialize(String(sqrtPriceX96));
     }
 }
 

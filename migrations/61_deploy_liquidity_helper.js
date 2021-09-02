@@ -1,6 +1,8 @@
 /**
  * Deploy the liquidity helper to allow for adding liquidity + staking LP tokens in one call
  */
+const JSBI = require('jsbi');
+
 const {
     getTokenContract,
     getSwapFactory,
@@ -8,13 +10,17 @@ const {
     getPositionManager,
     getPoolStaker,
 } = require('./external-contracts');
-const {encodeSqrtRatioX96} = require('./helper_functions');
+const {encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS} = require('./helper_functions');
+
+const {getTickAtSqrtRatio} = require('./TickMath.js');
+
 const {
     INITIAL_BSC_DEPLOYMENT_POOLS,
     INITIAL_ETH_DEPLOYMENT_POOLS,
     PRICE_LOWER,
     PRICE_UPPER,
 } = require('./migration-config');
+
 const {BSC_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config');
 
 // ============ Contracts ============
@@ -31,9 +37,6 @@ module.exports = async (deployer, network, accounts) => {
         ? INITIAL_BSC_DEPLOYMENT_POOLS
         : INITIAL_ETH_DEPLOYMENT_POOLS;
 
-    const priceLower = encodeSqrtRatioX96(1.0, 1.0); // TODO
-    const priceUpper = encodeSqrtRatioX96(1.0, 1.0); // TODO
-
     for (let pool of initialDeploymentPools) {
         const PoolContract = artifacts.require(pool.contractName);
         const HelperContract = artifacts.require(pool.helperContract);
@@ -41,13 +44,42 @@ module.exports = async (deployer, network, accounts) => {
         const otherToken = await getTokenContract(pool.otherToken, network);
         const poolContract = await PoolContract.deployed();
 
+        let priceLower, priceUpper;
+        let token0, token1;
+        if (antToken.address < otherToken.address) {
+            console.log('Case 1');
+            token0 = antToken;
+            token1 = otherToken;
+
+            priceLower = encodeSqrtRatioX96(9, 10);
+            priceUpper = encodeSqrtRatioX96(11, 10);
+        } else {
+            console.log('Case 2');
+            token0 = otherToken;
+            token1 = antToken;
+
+            priceLower = encodeSqrtRatioX96(10, 11);
+            priceUpper = encodeSqrtRatioX96(10, 9);
+        }
+
+        let tickLower = getTickAtSqrtRatio(priceLower);
+        let tickUpper = getTickAtSqrtRatio(priceUpper);
+
+        tickLower = nearestUsableTick(tickLower, TICK_SPACINGS[LIQUIDITY_FEE]);
+        tickUpper = nearestUsableTick(tickUpper, TICK_SPACINGS[LIQUIDITY_FEE]);
+
+        console.log(`Price Lower: ${priceLower}, Tick Lower: ${tickLower}`);
+        console.log(`Price Upper: ${priceUpper}, Tick Upper: ${tickUpper}`);
+
         console.log(`Deploying liquidity helper for pair ANT/${pool.otherToken}`);
+        console.log(`Price Lower: ${priceLower}, Price Upper: ${priceUpper}`);
+
         const liquidityHelper = await deployer.deploy(
             HelperContract,
-            antToken.address,
-            otherToken.address,
-            priceLower,
-            priceUpper,
+            token0.address,
+            token1.address,
+            tickLower,
+            tickUpper,
             LIQUIDITY_FEE,
             positionManager.address,
             poolStaker.address,
