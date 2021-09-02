@@ -1,7 +1,7 @@
 /**
  * Creation of the LP Token Staking pools for the supported pairs
  */
-const {getTokenContract, getSwapFactory, getPositionManager, getPoolStaker} = require('./external-contracts');
+const {getTokenContract, getSwapFactory, getPoolStaker} = require('./external-contracts');
 const {
     INITIAL_BSC_DEPLOYMENT_POOLS,
     INITIAL_ETH_DEPLOYMENT_POOLS,

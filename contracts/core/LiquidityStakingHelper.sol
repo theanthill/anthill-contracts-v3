@@ -36,11 +36,6 @@ contract LiquidityStakingHelper is Context, IERC721Receiver {
     IUniswapV3Staker public poolStaker;
     IPoolStakerV3WithRewards public stakerHelper;
 
-    uint256 public tokenId;
-    uint128 public liquidity;
-    uint256 public amount0;
-    uint256 public amount1;
-
     /* ========== CONSTRUCTOR ========== */
     constructor(
         IERC20 token0_,
@@ -87,7 +82,7 @@ contract LiquidityStakingHelper is Context, IERC721Receiver {
         token1.safeTransferFrom(_msgSender(), address(this), amount1Desired);
 
         // Mint liquidity
-        (tokenId, liquidity, amount0, amount1) = positionManager.mint(params);
+        (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1) = positionManager.mint(params);
 
         require(liquidity > 0, "Received 0 liquidity from position manager");
 
