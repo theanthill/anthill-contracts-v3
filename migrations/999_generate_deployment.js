@@ -42,7 +42,7 @@ function externalPairs(network) {
 // The deployment thus can be used on anttoken-frontend.
 const exportedContracts = ['Oracle', 'AntToken', 'AntBond', 'AntShare', 'Boardroom', 'Treasury', 'TokenFaucet'];
 
-const externalTokens = ['BUSD', 'BNB', 'ETH', 'PancakeRouter'];
+const externalTokens = ['BUSD', 'BNB', 'ETH'];
 
 // ============ Main Migration ============
 module.exports = async (deployer, network, accounts) => {

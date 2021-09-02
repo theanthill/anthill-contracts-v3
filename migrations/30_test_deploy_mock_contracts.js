@@ -23,8 +23,6 @@ const MockBNB = artifacts.require('MockBNB');
 const MockETH = artifacts.require('MockETH');
 const MockBandOracle = artifacts.require('MockStdReference');
 const TokenFaucet = artifacts.require('TokenFaucet');
-const PancakeFactory = artifacts.require('PancakeFactory');
-const PancakeRouter = artifacts.require('PancakeRouter');
 
 // ============ Main Migration ============
 async function migration(deployer, network, accounts) {
@@ -87,13 +85,6 @@ async function migration(deployer, network, accounts) {
         await mockBUSD.mint(tokenFaucet.address, faucetInitialAllocation);
         await nativeToken.mint(tokenFaucet.address, faucetInitialAllocation);
         await antToken.mint(tokenFaucet.address, faucetInitialAllocation);
-    }
-
-    // PancakeSwap
-    if (LOCAL_NETWORKS.includes(network)) {
-        await deployer.deploy(PancakeFactory, accounts[0]);
-        const pancakeFactory = await PancakeFactory.deployed();
-        await deployer.deploy(PancakeRouter, pancakeFactory.address, accounts[0]);
     }
 }
 

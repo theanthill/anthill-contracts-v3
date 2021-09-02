@@ -20,7 +20,7 @@
     "ganache:bsc-local-testnet": "node run-ganache --network bsc-local-testnet --blocktime 3",
     "ganache:bsc-local-mainnet": "node run-ganache --network bsc-local-mainnet --blocktime 3",
     "ganache:eth-local-ropsten": "node run-ganache --network eth-local-ropsten --blocktime 3",
-    "ganache:eth-local-rinkeby": "node run-ganache --network eth-local-rinkeby --blocktime 3",
+    "ganache:eth-local-rinkeby": "node run-ganache --network eth-local-rinkeby",
     "ganache:eth-local-mainnet": "node run-ganache --network eth-local-mainnet --blocktime 3",
     "ganache:dev": "node run-ganache --network dev"
   },
@@ -47,6 +47,7 @@
     "@uniswap/v3-periphery": "^1.1.1",
     "@uniswap/v3-staker": "^1.0.0",
     "bignumber.js": "^9.0.1",
+    "jsbi": "^3.2.1",
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "1.0.0-beta.13",
     "rimraf": "^2.7.1",

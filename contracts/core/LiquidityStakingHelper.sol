@@ -28,21 +28,26 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
 
     mapping(uint256 => address) stakesOwnership;
 
-    IERC20 token0;
-    IERC20 token1;
-    int24 tickLower;
-    int24 tickUpper;
-    uint24 fee;
-    INonfungiblePositionManager positionManager;
-    IUniswapV3Staker poolStaker;
-    IPoolStakerV3WithRewards stakerHelper;
+    IERC20 public token0;
+    IERC20 public token1;
+    int24 public tickLower;
+    int24 public tickUpper;
+    uint24 public fee;
+    INonfungiblePositionManager public positionManager;
+    IUniswapV3Staker public poolStaker;
+    IPoolStakerV3WithRewards public stakerHelper;
+
+    uint256 public tokenId;
+    uint128 public liquidity;
+    uint256 public amount0;
+    uint256 public amount1;
 
     /* ========== CONSTRUCTOR ========== */
     constructor(
         IERC20 token0_,
         IERC20 token1_,
-        uint160 sqrtPriceX96Lower_,
-        uint160 sqrtPriceX96Upper_,
+        int24 tickLower_,
+        int24 tickUpper_,
         uint24 fee_,
         INonfungiblePositionManager positionManager_,
         IUniswapV3Staker poolStaker_,
@@ -55,11 +60,11 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
         poolStaker = poolStaker_;
         stakerHelper = stakerHelper_;
 
-        tickLower = TickMath.getTickAtSqrtRatio(sqrtPriceX96Lower_);
-        tickUpper = TickMath.getTickAtSqrtRatio(sqrtPriceX96Upper_);
+        tickLower = tickLower_;
+        tickUpper = tickUpper_;
 
-        token0.approve(address(this), type(uint256).max);
-        token1.approve(address(this), type(uint256).max);
+        token0.approve(address(positionManager), type(uint256).max);
+        token1.approve(address(positionManager), type(uint256).max);
     }
 
     /* ========== MUTABLES ========== */
@@ -72,19 +77,17 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
     ) public {
         INonfungiblePositionManager.MintParams memory params = _getMintBaseParams();
 
-        params.tickLower = tickLower;
-        params.tickUpper = tickUpper;
         params.amount0Desired = amount0Desired;
         params.amount1Desired = amount1Desired;
-        params.amount0Min = amount0Min;
-        params.amount1Min = amount1Min;
+        params.amount0Min = 0;
+        params.amount1Min = 0;
         params.recipient = address(this);
         params.deadline = deadline;
 
         // Mint liquidity
-        (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1) = positionManager.mint(params);
+        (tokenId, liquidity, amount0, amount1) = positionManager.mint(params);
 
-        require(liquidity > 0, "Received 0 liquidity from position manager");
+        /*require(liquidity > 0, "Received 0 liquidity from position manager");
 
         // Returned unused tokens
         if (amount0 != amount0Desired) {
@@ -99,7 +102,7 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
 
         // Transfer deposit to staker helper
         poolStaker.transferDeposit(tokenId, address(stakerHelper));
-        stakerHelper.stakeToken(tokenId);
+        stakerHelper.stakeToken(tokenId);*/
     }
 
     function withdrawAndRemoveLiquidity(uint256 tokenId) public {
@@ -130,6 +133,7 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
         uint256 amount1Owed,
         bytes calldata /*data*/
     ) external override {
+        require(_msgSender() == address(0), "Mint Callback");
         require(_msgSender() == address(positionManager), "Caller to mint callback is not intended pool");
         token0.safeTransferFrom(_msgSender(), address(positionManager), amount0Owed);
         token1.safeTransferFrom(_msgSender(), address(positionManager), amount1Owed);
@@ -139,6 +143,8 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
         params.token0 = address(token0);
         params.token1 = address(token1);
         params.fee = fee;
+        params.tickLower = tickLower;
+        params.tickUpper = tickUpper;
     }
 
     function onERC721Received(
