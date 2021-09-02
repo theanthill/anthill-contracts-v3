@@ -51,42 +51,27 @@ async function addLiquidity(network, account, pool, positionManager, oracle, ini
     let mainTokenAmount = unit.times(initialAllocation);
     let otherTokenAmount = unit.times(initialAllocation).times(unit).idiv(priceOtherToken);
 
-    /*
-    // Mint some tokens for adding liquidity
-    await mainToken.mint(account, mainTokenAmount);
-    await otherToken.mint(account, otherTokenAmount);
-
-    // Approve the expense for the router
-    console.log(`  - Approving ${pool.mainToken} token for ${getDisplayBalance(mainTokenAmount)} tokens`);
-    console.log(`  - Approving ${pool.otherToken} token for ${getDisplayBalance(otherTokenAmount)} tokens`);
-    await Promise.all([
-        approveIfNot(mainToken, account, positionManager.address, mainTokenAmount),
-        approveIfNot(otherToken, account, positionManager.address, otherTokenAmount),
-    ]);
-*/
-
     const LiquidityHelper = artifacts.require(pool.helperContract);
     const liquidityHelper = await LiquidityHelper.deployed();
 
     // Mint some tokens for the liquidity helper
     console.log(`Minting ${getDisplayBalance(mainTokenAmount)} for ${pool.mainToken}`);
-    await mainToken.mint(liquidityHelper.address, mainTokenAmount);
     console.log(`Minting ${getDisplayBalance(otherTokenAmount)} for ${pool.otherToken}`);
-    await otherToken.mint(liquidityHelper.address, otherTokenAmount);
+    await mainToken.mint(account, mainTokenAmount);
+    await otherToken.mint(account, otherTokenAmount);
+    await Promise.all([
+        approveIfNot(mainToken, account, liquidityHelper.address, mainTokenAmount),
+        approveIfNot(otherToken, account, liquidityHelper.address, otherTokenAmount),
+    ]);
 
     console.log(
         `  - Adding liquidity for the ${pool.mainToken}/${pool.otherToken} pool (${getDisplayBalance(
             mainTokenAmount
         )}/${getDisplayBalance(otherTokenAmount)})`
     );
-    await liquidityHelper.addLiquidityAndStake(
-        mainTokenAmount,
-        otherTokenAmount,
-        mainTokenAmount,
-        otherTokenAmount,
-        deadline()
-    );
-    const tokenId = await liquidityHelper.tokenId();
+    await liquidityHelper.addLiquidityAndStake(mainTokenAmount, otherTokenAmount, 0, 0, deadline());
+
+    /*const tokenId = await liquidityHelper.tokenId();
     const liquidity = await liquidityHelper.liquidity();
     const amount0 = await liquidityHelper.amount0();
     const amount1 = await liquidityHelper.amount1();
@@ -94,7 +79,7 @@ async function addLiquidity(network, account, pool, positionManager, oracle, ini
     console.log(
         `tokenId: ${tokenId.toString()}, liquidity: ${getDisplayBalance(BigNumber(liquidity))}, 
         amount0: ${getDisplayBalance(BigNumber(amount0))}, amount1: ${getDisplayBalance(BigNumber(amount1))}`
-    );
+    );*/
 }
 
 async function approveIfNot(token, owner, spender, amount) {

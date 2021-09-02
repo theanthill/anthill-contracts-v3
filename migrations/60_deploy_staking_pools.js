@@ -19,7 +19,7 @@ module.exports = async (deployer, network, accounts) => {
     const antToken = await AntToken.deployed();
 
     const YEAR = 365 * 86400;
-    const Now = Math.round(Date.now() / 1000) + 300; // Add 300 seconds so we can create the incentive on time
+    const Now = Math.round(Date.now() / 1000) + 10; // Add 300 seconds so we can create the incentive on time
     const YearFromNow = Now + YEAR;
 
     const initialDeploymentPools = BSC_NETWORKS.includes(network)

@@ -14,7 +14,6 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import "@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3MintCallback.sol";
 
 import "../interfaces/INonfungiblePositionManager.sol";
 import "../interfaces/IUniswapV3Staker.sol";
@@ -22,7 +21,7 @@ import "../libraries/TickMath.sol";
 
 import "./PoolStakerV3WithRewards.sol";
 
-contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Receiver {
+contract LiquidityStakingHelper is Context, IERC721Receiver {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -79,15 +78,18 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
 
         params.amount0Desired = amount0Desired;
         params.amount1Desired = amount1Desired;
-        params.amount0Min = 0;
-        params.amount1Min = 0;
+        params.amount0Min = amount0Min;
+        params.amount1Min = amount1Min;
         params.recipient = address(this);
         params.deadline = deadline;
+
+        token0.safeTransferFrom(_msgSender(), address(this), amount0Desired);
+        token1.safeTransferFrom(_msgSender(), address(this), amount1Desired);
 
         // Mint liquidity
         (tokenId, liquidity, amount0, amount1) = positionManager.mint(params);
 
-        /*require(liquidity > 0, "Received 0 liquidity from position manager");
+        require(liquidity > 0, "Received 0 liquidity from position manager");
 
         // Returned unused tokens
         if (amount0 != amount0Desired) {
@@ -102,7 +104,7 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
 
         // Transfer deposit to staker helper
         poolStaker.transferDeposit(tokenId, address(stakerHelper));
-        stakerHelper.stakeToken(tokenId);*/
+        stakerHelper.stakeToken(tokenId);
     }
 
     function withdrawAndRemoveLiquidity(uint256 tokenId) public {
@@ -126,17 +128,6 @@ contract LiquidityStakingHelper is Context, IUniswapV3MintCallback, IERC721Recei
 
         // Burn liquidity NFT
         positionManager.burn(tokenId);
-    }
-
-    function uniswapV3MintCallback(
-        uint256 amount0Owed,
-        uint256 amount1Owed,
-        bytes calldata /*data*/
-    ) external override {
-        require(_msgSender() == address(0), "Mint Callback");
-        require(_msgSender() == address(positionManager), "Caller to mint callback is not intended pool");
-        token0.safeTransferFrom(_msgSender(), address(positionManager), amount0Owed);
-        token1.safeTransferFrom(_msgSender(), address(positionManager), amount1Owed);
     }
 
     function _getMintBaseParams() private view returns (INonfungiblePositionManager.MintParams memory params) {
