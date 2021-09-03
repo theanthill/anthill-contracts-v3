@@ -15,13 +15,14 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
+import "../core/ERC721Enumerable.sol";
 import "../interfaces/INonfungiblePositionManager.sol";
 import "../interfaces/IUniswapV3Staker.sol";
 import "../libraries/TickMath.sol";
 
 import "./PoolStakerV3WithRewards.sol";
 
-contract LiquidityStakingHelper is Context, IERC721Receiver {
+contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -84,6 +85,9 @@ contract LiquidityStakingHelper is Context, IERC721Receiver {
         // Mint liquidity
         (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1) = positionManager.mint(params);
 
+        // Record stakes ownership
+        _addTokenToOwnerEnumeration(_msgSender(), tokenId);
+
         require(liquidity > 0, "Received 0 liquidity from position manager");
 
         // Returned unused tokens
@@ -102,24 +106,16 @@ contract LiquidityStakingHelper is Context, IERC721Receiver {
         stakerHelper.stakeToken(tokenId);
     }
 
-    function withdrawAndRemoveLiquidity(uint256 tokenId) public {
-        // Unstake current position
-        stakerHelper.unstakeToken(tokenId);
+    function withdrawAndRemoveLiquidity(uint256 tokenId, uint256 deadline) public {
+        require(_isOwner(_msgSender(), tokenId), "Spender is not owner of ERC721 token");
 
-        // Claim accrued rewards
-        stakerHelper.claimReward(_msgSender(), tokenId);
+        _removeTokenFromOwnerEnumeration(_msgSender(), tokenId);
 
-        // Withdraw token to this contract so we can remove liquidity
-        poolStaker.withdrawToken(tokenId, address(this), "");
+        // Unstake and claim rewards
+        stakerHelper.exit(_msgSender(), tokenId);
 
-        // Collect liquidity + fees
-        INonfungiblePositionManager.CollectParams memory params = INonfungiblePositionManager.CollectParams({
-            tokenId: tokenId,
-            recipient: _msgSender(),
-            amount0Max: type(uint128).max,
-            amount1Max: type(uint128).max
-        });
-        positionManager.collect(params);
+        // Remove liquidity
+        _removeLiquidity(tokenId, deadline);
 
         // Burn liquidity NFT
         positionManager.burn(tokenId);
@@ -134,14 +130,44 @@ contract LiquidityStakingHelper is Context, IERC721Receiver {
     }
 
     function onERC721Received(
-        address operator,
-        address from,
+        address, /*operator*/
+        address, /*from*/
         uint256, /*tokenId*/
         bytes calldata /*data*/
-    ) external view override returns (bytes4) {
-        require(operator == address(this), "Wrong operator when receiving NFT");
-        require(from == address(poolStaker), "Wrong origin when receiving NFT");
-        require(msg.sender == address(poolStaker), "Wrong sender when receiving NFT");
+    ) external pure override returns (bytes4) {
+        // TODO
+        //require(operator == address(this) || operator == address(poolStaker), "Wrong operator when receiving NFT");
+        //require(from == address(poolStaker), "Wrong origin when receiving NFT");
+        //require(msg.sender == address(poolStaker), "Wrong sender when receiving NFT");
         return this.onERC721Received.selector;
+    }
+
+    function _getLiquidity(uint256 tokenId) public view returns (uint128 liquidity) {
+        (, , , , , , , liquidity, , , , ) = positionManager.positions(tokenId);
+    }
+
+    function _removeLiquidity(uint256 tokenId, uint256 deadline) public {
+        // Fetch liquidity
+        uint128 liquidity = _getLiquidity(tokenId);
+
+        // Decrease liquidity to 0
+        INonfungiblePositionManager.DecreaseLiquidityParams memory decreaseParams = INonfungiblePositionManager
+        .DecreaseLiquidityParams({
+            tokenId: tokenId,
+            liquidity: liquidity,
+            amount0Min: 0,
+            amount1Min: 0,
+            deadline: deadline
+        });
+        positionManager.decreaseLiquidity(decreaseParams);
+
+        // Collect liquidity + fees
+        INonfungiblePositionManager.CollectParams memory collectParams = INonfungiblePositionManager.CollectParams({
+            tokenId: tokenId,
+            recipient: _msgSender(),
+            amount0Max: type(uint128).max,
+            amount1Max: type(uint128).max
+        });
+        positionManager.collect(collectParams);
     }
 }

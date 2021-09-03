@@ -1,22 +1,22 @@
 {
   "BUSD": {
-    "address": "0x92aCe26841FE9D09511534C692eD89aa4D336480",
+    "address": "0x8A90c02c5C6e8C75c62c69190ba8f7a8ABaa10cF",
     "decimals": 18
   },
   "BNB": {
-    "address": "0xD0330Ed55AB13eb641e8e31a83a4e85E3E346f64",
+    "address": "0xF678A10a6719f80975EACaA990d32dD7301109B9",
     "decimals": 18
   },
   "ETH": {
-    "address": "0xdc7A91F2dC843EC04CD2eA024Af23D2FE3848c78",
+    "address": "0x2cD21e7e344f6aa537a67A83C12AE9572f98F600",
     "decimals": 18
   },
   "AntToken-BUSD": {
-    "address": "0x424eBDDad50076ce3D2C7f8af71674611762E405",
+    "address": "0xD7Df7726c1688B0AA0ED0723220DBfd77b24057e",
     "decimals": 18
   },
   "AntToken-ETH": {
-    "address": "0x46Ae288Fd99415822EADc65E0C44C04E865403Cc",
+    "address": "0x7603d9210933d7119A39d5057EEE6323B681675F",
     "decimals": 18
   }
 }
