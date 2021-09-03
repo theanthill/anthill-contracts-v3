@@ -20,6 +20,10 @@ abstract contract IPoolStakerV3WithRewards {
     function unstakeToken(uint256 tokenId) external virtual;
 
     function claimReward(address to, uint256 tokenId) external virtual returns (uint256 reward);
+
+    function exit(address to, uint256 tokenId) external virtual returns (uint256 reward);
+
+    function getRewardInfo(uint256 tokenId) external virtual returns (uint256 reward);
 }
 
 contract PoolStakerV3WithRewards is OperatorAccessControl {
@@ -64,10 +68,17 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
         poolStaker.unstakeToken(key, tokenId);
     }
 
-    function claimReward(address to, uint256 tokenId) external onlyOperator returns (uint256 reward) {
+    function exit(address to, uint256 tokenId) external onlyOperator returns (uint256 reward) {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         (uint256 amountRequired, ) = poolStaker.getRewardInfo(key, tokenId);
+        poolStaker.unstakeToken(key, tokenId);
         reward = poolStaker.claimReward(key.rewardToken, to, amountRequired);
+        poolStaker.withdrawToken(tokenId, _msgSender(), "");
+    }
+
+    function getRewardInfo(uint256 tokenId) external view returns (uint256 reward) {
+        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        (reward, ) = poolStaker.getRewardInfo(key, tokenId);
     }
 
     function _getIncentiveKey() private view returns (IUniswapV3Staker.IncentiveKey memory key) {
