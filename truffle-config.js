@@ -24,6 +24,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const binanceMnemonic = process.env['BINANCE_MNEMONIC'];
 const ropstenMnemonic = process.env['ETHEREUM_ROPSTEN_MNEMONIC'];
+const rinkebyMnemonic = process.env['ETHEREUM_RINKEBY_MNEMONIC'];
 const arbitrumTestnetMnemonic = process.env['ARBITRUM_TESTNET_MNEMONIC'];
 
 const infuraKey = process.env['INFURA_KEY'];
@@ -92,14 +93,13 @@ module.exports = {
             skipDryRun: true,
         },
         'eth-local-rinkeby': {
-            host: '127.0.0.1',
-            port: 8545,
+            provider: () => new HDWalletProvider(rinkebyMnemonic, `http://127.0.0.1:8545`),
             network_id: 4,
             skipDryRun: true,
         },
         'eth-rinkeby': {
             provider: () =>
-                new HDWalletProvider(ropstenMnemonic, `https://rinkeby.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1`),
+                new HDWalletProvider(rinkebyMnemonic, `https://rinkeby.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1`),
             network_id: 4,
             gas: 5500000,
             gasPrice: 15000000000,
