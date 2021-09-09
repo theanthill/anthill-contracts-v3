@@ -26,8 +26,6 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    mapping(uint256 => address) stakesOwnership;
-
     IERC20 public token0;
     IERC20 public token1;
     int24 public tickLower;
@@ -36,6 +34,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     INonfungiblePositionManager public positionManager;
     IUniswapV3Staker public poolStaker;
     IPoolStakerV3WithRewards public stakerHelper;
+    mapping(uint256 => uint256) tokenIdIndex; /* tokenId => stakes index */
+    uint256[] stakes; /* tokenId */
 
     /* ========== CONSTRUCTOR ========== */
     constructor(
@@ -87,6 +87,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
 
         // Record stakes ownership
         _addTokenToOwnerEnumeration(_msgSender(), tokenId);
+        _addTokenToGlobalList(tokenId);
 
         require(liquidity > 0, "Received 0 liquidity from position manager");
 
@@ -110,6 +111,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         require(_isOwner(_msgSender(), tokenId), "Spender is not owner of ERC721 token");
 
         _removeTokenFromOwnerEnumeration(_msgSender(), tokenId);
+        _removeTokenFromGlobalList(tokenId);
 
         // Unstake and claim rewards
         stakerHelper.exit(_msgSender(), tokenId);
@@ -119,6 +121,14 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
 
         // Burn liquidity NFT
         positionManager.burn(tokenId);
+    }
+
+    function getTotalStakedLiquidity() external view returns (uint256) {
+        uint256 liquidity = 0;
+        for (uint256 i = 0; i < stakes.length; ++i) {
+            liquidity = liquidity.add(_getLiquidity(stakes[i]));
+        }
+        return liquidity;
     }
 
     function _getMintBaseParams() private view returns (INonfungiblePositionManager.MintParams memory params) {
@@ -142,11 +152,11 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         return this.onERC721Received.selector;
     }
 
-    function _getLiquidity(uint256 tokenId) public view returns (uint128 liquidity) {
+    function _getLiquidity(uint256 tokenId) internal view returns (uint128 liquidity) {
         (, , , , , , , liquidity, , , , ) = positionManager.positions(tokenId);
     }
 
-    function _removeLiquidity(uint256 tokenId, uint256 deadline) public {
+    function _removeLiquidity(uint256 tokenId, uint256 deadline) internal {
         // Fetch liquidity
         uint128 liquidity = _getLiquidity(tokenId);
 
@@ -169,5 +179,20 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
             amount1Max: type(uint128).max
         });
         positionManager.collect(collectParams);
+    }
+
+    function _addTokenToGlobalList(uint256 tokenId) internal {
+        tokenIdIndex[tokenId] = stakes.length;
+        stakes.push(tokenId);
+    }
+
+    function _removeTokenFromGlobalList(uint256 tokenId) internal {
+        uint256 tokenIndex = tokenIdIndex[tokenId];
+        if (tokenIndex < stakes.length - 1) {
+            uint256 lastTokenId = stakes[stakes.length - 1];
+            stakes[tokenIndex] = lastTokenId;
+            tokenIdIndex[lastTokenId] = tokenIndex;
+        }
+        stakes.pop();
     }
 }
