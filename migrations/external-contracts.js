@@ -8,6 +8,7 @@ const PositionManager = artifacts.require('INonfungiblePositionManager');
 const SwapFactory = artifacts.require('IUniswapV3Factory');
 const SwapRouter = artifacts.require('ISwapRouter');
 const PoolStaker = artifacts.require('IUniswapV3Staker');
+const Quoter = artifacts.require('IQuoter');
 const MockBUSD = artifacts.require('MockBUSD');
 const MockBNB = artifacts.require('MockBNB');
 const MockETH = artifacts.require('MockETH');
@@ -33,6 +34,10 @@ async function getPoolStaker(network) {
     return await PoolStaker.at(knownContracts.PoolStaker[network]);
 }
 
+async function getQuoter(network) {
+    return await Quoter.at(knownContracts.Quoter[network]);
+}
+
 async function getBUSD(network) {
     return MAIN_NETWORKS.includes(network) ? await IERC20.at(knownContracts.BUSD[network]) : await MockBUSD.deployed();
 }
@@ -49,9 +54,9 @@ async function getBandOracle(network) {
     return await MockBandOracle.deployed();
 }
 
-async function getTokenContract(tokenName, network) {
+async function getContract(contractName, network) {
     // function exists
-    switch (tokenName) {
+    switch (contractName) {
         case 'AntToken':
             return await AntToken.deployed();
         case 'AntShare':
@@ -64,8 +69,20 @@ async function getTokenContract(tokenName, network) {
             return await getBNB(network);
         case 'ETH':
             return await getETH(network);
+        case 'BandOracle':
+            return await getBandOracle(network);
+        case 'PositionManager':
+            return await getPositionManager(network);
+        case 'PoolStaker':
+            return await getPoolStaker(network);
+        case 'SwapFactory':
+            return await getSwapFactory(network);
+        case 'SwapRouter':
+            return await getSwapRouter(network);
+        case 'Quoter':
+            return await getQuoter(network);
         default:
-            throw 'getTokenContract: Token contract not found: ' + tokenName;
+            throw 'getContract: Token contract not found: ' + contractName;
     }
 }
 
@@ -74,9 +91,10 @@ module.exports = {
     getSwapFactory,
     getSwapRouter,
     getPoolStaker,
+    getQuoter,
     getBUSD,
     getBNB,
     getETH,
     getBandOracle,
-    getTokenContract,
+    getContract,
 };
