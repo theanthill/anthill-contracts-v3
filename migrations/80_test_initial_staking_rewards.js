@@ -24,7 +24,6 @@ module.exports = async (deployer, network, accounts) => {
     }
 
     const antToken = await AntToken.deployed();
-    const PoolStaker = await getPoolStaker(network);
     const initialDeploymentPools = BSC_NETWORKS.includes(network)
         ? INITIAL_BSC_DEPLOYMENT_POOLS
         : INITIAL_ETH_DEPLOYMENT_POOLS;
@@ -39,9 +38,13 @@ module.exports = async (deployer, network, accounts) => {
         console.log(`Minting ${getDisplayBalance(rewardPerPool)} ANT Tokens for rewards`);
         await antToken.mint(deployedPool.address, rewardPerPool);
 
+        const YEAR = 365 * 86400;
+        const Now = Math.round(Date.now() / 1000) + 2;
+        const YearFromNow = Now + YEAR;
+
         console.log(
             `Creating incentive of ${getDisplayBalance(rewardPerPool)} ANT tokens for ${pool.contractName} pool`
         );
-        await deployedPool.createIncentive(rewardPerPool);
+        await deployedPool.createIncentive(rewardPerPool, Now, YearFromNow);
     }
 };

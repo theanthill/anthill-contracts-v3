@@ -8,6 +8,7 @@ pragma solidity ^0.8.0;
 
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 import "../access/OperatorAccessControl.sol";
 import "../interfaces/IUniswapV3Staker.sol";
@@ -27,12 +28,16 @@ abstract contract IPoolStakerV3WithRewards {
 }
 
 contract PoolStakerV3WithRewards is OperatorAccessControl {
+    using SafeMath for uint256;
+
     IUniswapV3Staker poolStaker;
     IUniswapV3Pool public pool;
     IERC20Minimal public rewardToken;
+    address public refundee;
     uint256 public startTime;
     uint256 public endTime;
-    address public refundee;
+
+    uint256 rewardAmount;
 
     mapping(uint256 => address) private owners;
 
@@ -40,19 +45,23 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
         IUniswapV3Staker poolStaker_,
         IUniswapV3Pool pool_,
         IERC20Minimal rewardToken_,
-        uint256 startTime_,
-        uint256 endTime_,
         address refundee_
     ) {
         poolStaker = poolStaker_;
         pool = pool_;
         rewardToken = rewardToken_;
-        startTime = startTime_;
-        endTime = endTime_;
         refundee = refundee_;
     }
 
-    function createIncentive(uint256 rewardAmount) external {
+    function createIncentive(
+        uint256 rewardAmount_,
+        uint256 startTime_,
+        uint256 endTime_
+    ) external {
+        startTime = startTime_;
+        endTime = endTime_;
+        rewardAmount = rewardAmount_;
+
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         rewardToken.approve(address(poolStaker), rewardAmount);
         poolStaker.createIncentive(key, rewardAmount);
@@ -79,6 +88,10 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
     function getRewardInfo(uint256 tokenId) external view returns (uint256 reward) {
         IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
         (reward, ) = poolStaker.getRewardInfo(key, tokenId);
+    }
+
+    function getRewardRate() external view returns (uint256) {
+        return rewardAmount.mul(10**18).div(endTime - startTime);
     }
 
     function _getIncentiveKey() private view returns (IUniswapV3Staker.IncentiveKey memory key) {
