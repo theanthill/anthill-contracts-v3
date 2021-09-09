@@ -83,8 +83,7 @@ module.exports = {
             skipDryRun: true,
         },
         'eth-ropsten': {
-            provider: () =>
-                new HDWalletProvider(ropstenMnemonic, `https://ropsten.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1`),
+            provider: () => new HDWalletProvider(ropstenMnemonic, `https://ropsten.infura.io/v3/${infuraKey}`),
             network_id: 3,
             gas: 5500000,
             gasPrice: 15000000000,
@@ -98,8 +97,7 @@ module.exports = {
             skipDryRun: true,
         },
         'eth-rinkeby': {
-            provider: () =>
-                new HDWalletProvider(rinkebyMnemonic, `https://rinkeby.infura.io/v3/6e5d84ddfd044f44b7b6ae6ec167f3f1`),
+            provider: () => new HDWalletProvider(rinkebyMnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
             network_id: 4,
             gas: 5500000,
             gasPrice: 15000000000,
