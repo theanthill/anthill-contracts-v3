@@ -11,7 +11,7 @@ const {
     INITIAL_ETH_DEPLOYMENT_POOLS,
 } = require('./migration-config');
 const {BSC_NETWORKS} = require('../deploy.config');
-const {getTokenContract, getBandOracle, getPositionManager} = require('./external-contracts');
+const {getContract, getBandOracle, getPositionManager} = require('./external-contracts');
 const {getDisplayBalance} = require('../utils/helperFunctions');
 
 // ============ Contracts ============
@@ -39,8 +39,8 @@ async function migration(deployer, network, accounts) {
 
 // ============ Helper Functions ============
 async function addLiquidity(network, account, pool, positionManager, oracle, initialAllocation) {
-    const mainToken = await getTokenContract(pool.mainToken, network);
-    const otherToken = await getTokenContract(pool.otherToken, network);
+    const mainToken = await getContract(pool.mainToken, network);
+    const otherToken = await getContract(pool.otherToken, network);
 
     // Get the price rate
     const otherTokenRate = await oracle.getReferenceData(pool.otherToken, 'BUSD');
