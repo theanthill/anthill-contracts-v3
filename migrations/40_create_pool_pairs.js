@@ -4,7 +4,7 @@
  */
 const {INITIAL_BSC_DEPLOYMENT_POOLS, INITIAL_ETH_DEPLOYMENT_POOLS} = require('./migration-config');
 const {BSC_NETWORKS, LIQUIDITY_FEE} = require('../deploy.config');
-const {getTokenContract, getSwapFactory} = require('./external-contracts');
+const {getContract, getSwapFactory} = require('./external-contracts');
 const {encodeSqrtRatioX96} = require('../utils/helperFunctions');
 
 // ============ Contracts ============
@@ -21,7 +21,7 @@ async function migration(deployer, network, accounts) {
         : INITIAL_ETH_DEPLOYMENT_POOLS;
 
     for (let pool of initialDeploymentPools) {
-        const otherToken = await getTokenContract(pool.otherToken, network);
+        const otherToken = await getContract(pool.otherToken, network);
 
         console.log(`Creating swap pool for the ANT/${pool.otherToken} liquidity`);
         await swapFactory.createPool(antToken.address, otherToken.address, LIQUIDITY_FEE);
@@ -33,6 +33,8 @@ async function migration(deployer, network, accounts) {
 
         const sqrtPriceX96 = encodeSqrtRatioX96(1, 1);
         await uniswapPool.initialize(String(sqrtPriceX96));
+
+        await uniswapPool.increaseObservationCardinalityNext(16);
     }
 }
 

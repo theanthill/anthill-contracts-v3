@@ -7,7 +7,7 @@ const util = require('util');
 
 const {INITIAL_BSC_DEPLOYMENT_POOLS, INITIAL_ETH_DEPLOYMENT_POOLS} = require('./migration-config');
 const {BSC_NETWORKS} = require('../deploy.config');
-const {getBandOracle} = require('./external-contracts');
+const {getContract} = require('./external-contracts');
 
 const writeFile = util.promisify(fs.writeFile);
 
@@ -53,21 +53,24 @@ module.exports = async (deployer, network, accounts) => {
     const deployments = {};
 
     const exportedArtifacts = exportedContracts.map((name) => artifacts.require(name));
-
     for (const artifact of exportedArtifacts) {
-        console.log(`Exporting artifact: ${artifact.contractName} at address ${artifact.address}`);
+        console.log(`Exporting deployed contract: ${artifact.contractName} at address ${artifact.address}`);
         deployments[artifact.contractName] = {
             address: artifact.address,
             abi: artifact.abi,
         };
     }
 
-    const bandOracle = await getBandOracle(network);
-    console.log(`Exporting artifact: BandOracle at address ${bandOracle.address}`);
-    deployments['BandOracle'] = {
-        address: bandOracle.address,
-        abi: bandOracle.abi,
-    };
+    const externalContracts = ['BandOracle', 'SwapRouter', 'SwapFactory', 'PositionManager', 'PoolStaker', 'Quoter'];
+    for (const contractName of externalContracts) {
+        const contract = await getContract(contractName, network);
+
+        console.log(`Exporting external contract: ${contractName} at address ${contract.address}`);
+        deployments[contractName] = {
+            address: contract.address,
+            abi: contract.abi,
+        };
+    }
 
     const deploymentPath = path.resolve(__dirname, `../deployments/deployments.${network}.json`);
     await writeFile(deploymentPath, JSON.stringify(deployments, null, 2));

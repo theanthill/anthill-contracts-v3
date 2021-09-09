@@ -3,7 +3,7 @@
  */
 const JSBI = require('jsbi');
 
-const {getTokenContract, getPositionManager, getPoolStaker} = require('./external-contracts');
+const {getContract, getPositionManager, getPoolStaker} = require('./external-contracts');
 const {encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS} = require('../utils/helperFunctions');
 
 const {getTickAtSqrtRatio} = require('../utils/TickMath');
@@ -35,7 +35,7 @@ module.exports = async (deployer, network, accounts) => {
         const PoolContract = artifacts.require(pool.contractName);
         const HelperContract = artifacts.require(pool.helperContract);
 
-        const otherToken = await getTokenContract(pool.otherToken, network);
+        const otherToken = await getContract(pool.otherToken, network);
         const poolContract = await PoolContract.deployed();
 
         let priceLower, priceUpper;
