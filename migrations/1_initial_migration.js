@@ -10,6 +10,7 @@ const ExternalArtifacts = {
     ISwapRouter: require('@uniswap/v3-periphery/artifacts/contracts/interfaces/ISwapRouter.sol/ISwapRouter.json'),
     IUniswapV3Staker: require('@uniswap/v3-staker/artifacts/contracts/interfaces/IUniswapV3Staker.sol/IUniswapV3Staker.json'),
     IUniswapV3Pool: require('@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json'),
+    IQuoter: require('@uniswap/v3-periphery/artifacts/contracts/interfaces/IQuoter.sol/IQuoter.json'),
 };
 
 const Migrations = artifacts.require('Migrations');

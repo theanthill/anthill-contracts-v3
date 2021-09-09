@@ -55,6 +55,16 @@ module.exports = {
         'eth-mainnet': '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
         'arbitrum-testnet': '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
     },
+    Quoter: {
+        // Ethereum
+        'eth-local-ropsten': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'eth-ropsten': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'eth-local-rinkeby': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'eth-rinkeby': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'eth-local-mainnet': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'eth-mainnet': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        'arbitrum-testnet': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+    },
 
     BAND_ORACLE: {
         // Binance
