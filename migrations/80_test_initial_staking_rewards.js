@@ -39,7 +39,7 @@ module.exports = async (deployer, network, accounts) => {
         await antToken.mint(deployedPool.address, rewardPerPool);
 
         const YEAR = 365 * 86400;
-        const Now = Math.round(Date.now() / 1000) + 2;
+        const Now = Math.round(Date.now() / 1000) + 180;
         const YearFromNow = Now + YEAR;
 
         console.log(
