@@ -13,8 +13,8 @@ contract BUSDANTPoolHelper is LiquidityStakingHelper {
         int24 tickLower_,
         int24 tickUpper_,
         uint24 fee_,
-        INonfungiblePositionManager positionManager_,
-        IUniswapV3Staker poolStaker_,
+        INonfungiblePositionManagerCustom positionManager_,
+        IUniswapV3StakerCustom poolStaker_,
         IPoolStakerV3WithRewards stakerHelper_
     )
         LiquidityStakingHelper(

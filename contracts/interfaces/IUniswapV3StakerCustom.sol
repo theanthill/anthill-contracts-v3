@@ -13,7 +13,7 @@ import "@uniswap/v3-periphery/contracts/interfaces/IMulticall.sol";
 
 /// @title Uniswap V3 Staker Interface
 /// @notice Allows staking nonfungible liquidity tokens in exchange for reward tokens
-interface IUniswapV3Staker is IERC721Receiver, IMulticall {
+interface IUniswapV3StakerCustom is IERC721Receiver, IMulticall {
     /// @param rewardToken The token being distributed as a reward
     /// @param pool The Uniswap V3 pool
     /// @param startTime The time when the incentive program begins

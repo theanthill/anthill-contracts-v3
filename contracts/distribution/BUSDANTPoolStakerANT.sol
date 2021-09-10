@@ -10,7 +10,7 @@ import "../core/PoolStakerV3WithRewards.sol";
 
 contract BUSDANTPoolStakerANT is PoolStakerV3WithRewards {
     constructor(
-        IUniswapV3Staker poolStaker_,
+        IUniswapV3StakerCustom poolStaker_,
         IUniswapV3Pool pool_,
         IERC20Minimal rewardToken_,
         address refundee_
