@@ -1,6 +1,6 @@
 {
   "Oracle": {
-    "address": "0xd50739EAafbA8f6E27F598fC65E4Ea6DcDF97AE9",
+    "address": "0x59df67e44836C084621e1798dA87B10C4424632B",
     "abi": [
       {
         "inputs": [
@@ -647,7 +647,7 @@
     ]
   },
   "AntToken": {
-    "address": "0xB626112fDbFA9C037d68A37cA1081609eA0d20e9",
+    "address": "0x748aB91e49E63AAe2D364339b7e3473f4215B048",
     "abi": [
       {
         "inputs": [],
@@ -1298,7 +1298,7 @@
     ]
   },
   "AntBond": {
-    "address": "0xC7b24E17293E1Dd05142FD3eE372DEca5B62DC13",
+    "address": "0x9428905BA9FD9282f094Dbe5728b9776D1503775",
     "abi": [
       {
         "inputs": [],
@@ -1949,7 +1949,7 @@
     ]
   },
   "AntShare": {
-    "address": "0xD0C69251C501CED3b453B8ef49aA28A770a78e48",
+    "address": "0x720A60E7Ec4D999248cf10487FF6fB800e2D2Fe2",
     "abi": [
       {
         "inputs": [],
@@ -2600,7 +2600,7 @@
     ]
   },
   "Boardroom": {
-    "address": "0xf0b397920905c603F08293787bd8EF4119994AC3",
+    "address": "0x59Ce75d7C452463D94503706704FeB52B6007656",
     "abi": [
       {
         "inputs": [
@@ -3188,7 +3188,7 @@
     ]
   },
   "Treasury": {
-    "address": "0x48570dEe37C853a8DCBA51723bC4D97266678e5a",
+    "address": "0xDEf02B55473f09E126F752804aa33277A9B211CF",
     "abi": [
       {
         "inputs": [
@@ -4034,7 +4034,7 @@
     ]
   },
   "TokenFaucet": {
-    "address": "0xFD4D131A9687b1AC0E3d90FdC067b4aD327deA7B",
+    "address": "0x1059464bEA997fD10104AFC48F19F0A3018B4353",
     "abi": [
       {
         "inputs": [
@@ -4153,12 +4153,12 @@
     ]
   },
   "BUSDANTPoolStakerANT": {
-    "address": "0xBdC5B831633300cCDeD7EaB5dc71bAaD318DE801",
+    "address": "0xa9e74dc740724Ef05313e402FE6c69Cff7C15d7a",
     "abi": [
       {
         "inputs": [
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -4677,7 +4677,7 @@
     ]
   },
   "BUSDANTPoolHelper": {
-    "address": "0x2E602C584033C1c99c2Bd6e78A6C182B02CE1448",
+    "address": "0xAC1a0eE42B819e0bcF5209b0f2FaF6E0952527b4",
     "abi": [
       {
         "inputs": [
@@ -4707,12 +4707,12 @@
             "type": "uint24"
           },
           {
-            "internalType": "contract INonfungiblePositionManager",
+            "internalType": "contract INonfungiblePositionManagerCustom",
             "name": "positionManager_",
             "type": "address"
           },
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -4846,7 +4846,7 @@
         "name": "poolStaker",
         "outputs": [
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "",
             "type": "address"
           }
@@ -4860,7 +4860,7 @@
         "name": "positionManager",
         "outputs": [
           {
-            "internalType": "contract INonfungiblePositionManager",
+            "internalType": "contract INonfungiblePositionManagerCustom",
             "name": "",
             "type": "address"
           }
@@ -4985,12 +4985,12 @@
     ]
   },
   "ETHANTPoolStakerANT": {
-    "address": "0x9D53631B5773183E7c17189e29206369BD855C42",
+    "address": "0xac26084735c298e6d6693AA9020C1197dF42510A",
     "abi": [
       {
         "inputs": [
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -5509,7 +5509,7 @@
     ]
   },
   "ETHANTPoolHelper": {
-    "address": "0x2d2AF20a61a10A8Af64dC276a2dDe6D67dFf623F",
+    "address": "0x31ee8e0f824A117A3bb0fbd6e6aA6023C6a66e3e",
     "abi": [
       {
         "inputs": [
@@ -5539,12 +5539,12 @@
             "type": "uint24"
           },
           {
-            "internalType": "contract INonfungiblePositionManager",
+            "internalType": "contract INonfungiblePositionManagerCustom",
             "name": "positionManager_",
             "type": "address"
           },
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -5678,7 +5678,7 @@
         "name": "poolStaker",
         "outputs": [
           {
-            "internalType": "contract IUniswapV3Staker",
+            "internalType": "contract IUniswapV3StakerCustom",
             "name": "",
             "type": "address"
           }
@@ -5692,7 +5692,7 @@
         "name": "positionManager",
         "outputs": [
           {
-            "internalType": "contract INonfungiblePositionManager",
+            "internalType": "contract INonfungiblePositionManagerCustom",
             "name": "",
             "type": "address"
           }
@@ -5817,7 +5817,7 @@
     ]
   },
   "BandOracle": {
-    "address": "0xAf8ec996486F5c645e9fb5Eb745068Bfe56085F2",
+    "address": "0xb3A826624356A72E8AfE6c9b9A959A6f4aafc860",
     "abi": [
       {
         "inputs": [],
