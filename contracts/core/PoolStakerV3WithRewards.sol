@@ -11,7 +11,7 @@ import "@uniswap/v3-core/contracts/interfaces/IERC20Minimal.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 import "../access/OperatorAccessControl.sol";
-import "../interfaces/IUniswapV3Staker.sol";
+import "../interfaces/IUniswapV3StakerCustom.sol";
 
 abstract contract IPoolStakerV3WithRewards {
     function createIncentive(uint256 rewardAmount) external virtual;
@@ -30,7 +30,7 @@ abstract contract IPoolStakerV3WithRewards {
 contract PoolStakerV3WithRewards is OperatorAccessControl {
     using SafeMath for uint256;
 
-    IUniswapV3Staker poolStaker;
+    IUniswapV3StakerCustom poolStaker;
     IUniswapV3Pool public pool;
     IERC20Minimal public rewardToken;
     address public refundee;
@@ -42,7 +42,7 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
     mapping(uint256 => address) private owners;
 
     constructor(
-        IUniswapV3Staker poolStaker_,
+        IUniswapV3StakerCustom poolStaker_,
         IUniswapV3Pool pool_,
         IERC20Minimal rewardToken_,
         address refundee_
@@ -62,23 +62,23 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
         endTime = endTime_;
         rewardAmount = rewardAmount_;
 
-        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        IUniswapV3StakerCustom.IncentiveKey memory key = _getIncentiveKey();
         rewardToken.approve(address(poolStaker), rewardAmount);
         poolStaker.createIncentive(key, rewardAmount);
     }
 
     function stakeToken(uint256 tokenId) external onlyOperator {
-        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        IUniswapV3StakerCustom.IncentiveKey memory key = _getIncentiveKey();
         poolStaker.stakeToken(key, tokenId);
     }
 
     function unstakeToken(uint256 tokenId) external onlyOperator {
-        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        IUniswapV3StakerCustom.IncentiveKey memory key = _getIncentiveKey();
         poolStaker.unstakeToken(key, tokenId);
     }
 
     function exit(address to, uint256 tokenId) external onlyOperator returns (uint256 reward) {
-        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        IUniswapV3StakerCustom.IncentiveKey memory key = _getIncentiveKey();
         (uint256 amountRequired, ) = poolStaker.getRewardInfo(key, tokenId);
         poolStaker.unstakeToken(key, tokenId);
         reward = poolStaker.claimReward(key.rewardToken, to, amountRequired);
@@ -86,7 +86,7 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
     }
 
     function getRewardInfo(uint256 tokenId) external view returns (uint256 reward) {
-        IUniswapV3Staker.IncentiveKey memory key = _getIncentiveKey();
+        IUniswapV3StakerCustom.IncentiveKey memory key = _getIncentiveKey();
         (reward, ) = poolStaker.getRewardInfo(key, tokenId);
     }
 
@@ -94,7 +94,7 @@ contract PoolStakerV3WithRewards is OperatorAccessControl {
         return rewardAmount.mul(10**18).div(endTime - startTime);
     }
 
-    function _getIncentiveKey() private view returns (IUniswapV3Staker.IncentiveKey memory key) {
+    function _getIncentiveKey() private view returns (IUniswapV3StakerCustom.IncentiveKey memory key) {
         key.rewardToken = rewardToken;
         key.pool = pool;
         key.startTime = startTime;

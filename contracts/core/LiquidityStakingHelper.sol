@@ -16,8 +16,8 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 import "../core/ERC721Enumerable.sol";
-import "../interfaces/INonfungiblePositionManager.sol";
-import "../interfaces/IUniswapV3Staker.sol";
+import "../interfaces/INonfungiblePositionManagerCustom.sol";
+import "../interfaces/IUniswapV3StakerCustom.sol";
 import "../libraries/TickMath.sol";
 
 import "./PoolStakerV3WithRewards.sol";
@@ -31,8 +31,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     int24 public tickLower;
     int24 public tickUpper;
     uint24 public fee;
-    INonfungiblePositionManager public positionManager;
-    IUniswapV3Staker public poolStaker;
+    INonfungiblePositionManagerCustom public positionManager;
+    IUniswapV3StakerCustom public poolStaker;
     IPoolStakerV3WithRewards public stakerHelper;
     mapping(uint256 => uint256) tokenIdIndex; /* tokenId => stakes index */
     uint256[] stakes; /* tokenId */
@@ -44,8 +44,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         int24 tickLower_,
         int24 tickUpper_,
         uint24 fee_,
-        INonfungiblePositionManager positionManager_,
-        IUniswapV3Staker poolStaker_,
+        INonfungiblePositionManagerCustom positionManager_,
+        IUniswapV3StakerCustom poolStaker_,
         IPoolStakerV3WithRewards stakerHelper_
     ) {
         token0 = token0_;
@@ -70,7 +70,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         uint256 amount1Min,
         uint256 deadline
     ) public {
-        INonfungiblePositionManager.MintParams memory params = _getMintBaseParams();
+        INonfungiblePositionManagerCustom.MintParams memory params = _getMintBaseParams();
 
         params.amount0Desired = amount0Desired;
         params.amount1Desired = amount1Desired;
@@ -131,7 +131,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         return liquidity;
     }
 
-    function _getMintBaseParams() private view returns (INonfungiblePositionManager.MintParams memory params) {
+    function _getMintBaseParams() private view returns (INonfungiblePositionManagerCustom.MintParams memory params) {
         params.token0 = address(token0);
         params.token1 = address(token1);
         params.fee = fee;
@@ -161,8 +161,10 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         uint128 liquidity = _getLiquidity(tokenId);
 
         // Decrease liquidity to 0
-        INonfungiblePositionManager.DecreaseLiquidityParams memory decreaseParams = INonfungiblePositionManager
-        .DecreaseLiquidityParams({
+
+
+            INonfungiblePositionManagerCustom.DecreaseLiquidityParams memory decreaseParams
+         = INonfungiblePositionManagerCustom.DecreaseLiquidityParams({
             tokenId: tokenId,
             liquidity: liquidity,
             amount0Min: 0,
@@ -172,7 +174,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         positionManager.decreaseLiquidity(decreaseParams);
 
         // Collect liquidity + fees
-        INonfungiblePositionManager.CollectParams memory collectParams = INonfungiblePositionManager.CollectParams({
+        INonfungiblePositionManagerCustom.CollectParams memory collectParams = INonfungiblePositionManagerCustom
+        .CollectParams({
             tokenId: tokenId,
             recipient: _msgSender(),
             amount0Max: type(uint128).max,
