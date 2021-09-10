@@ -1,5 +1,7 @@
-import '@nomiclabs/hardhat-waffle';
+//import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
+import 'hardhat-deploy';
+import 'hardhat-deploy-ethers';
 import 'hardhat-gas-reporter';
 import 'solidity-coverage';
 
@@ -50,6 +52,10 @@ function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
 
 const config: HardhatUserConfig = {
     defaultNetwork: 'hardhat',
+    namedAccounts: {
+        deployer: 0,
+        simpleERC20Beneficiary: 1,
+    },
     gasReporter: {
         currency: 'USD',
         enabled: process.env.REPORT_GAS ? true : false,
