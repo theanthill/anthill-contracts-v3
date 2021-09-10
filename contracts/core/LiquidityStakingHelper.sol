@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity =0.7.6;
+pragma abicoder v2;
 
 /**
     Helps providing liquidity to PancakeSwap and staking the LP tokens into a staking pool all
@@ -7,18 +8,18 @@ pragma solidity ^0.8.0;
  */
 
 import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/utils/math/Math.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/math/Math.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
+import "@uniswap/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
+import "@uniswap/v3-staker/contracts/interfaces/IUniswapV3Staker.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import "@uniswap/v3-core/contracts/libraries/TickMath.sol";
 
 import "../core/ERC721Enumerable.sol";
-import "../interfaces/INonfungiblePositionManagerCustom.sol";
-import "../interfaces/IUniswapV3StakerCustom.sol";
-import "../libraries/TickMath.sol";
 
 import "./PoolStakerV3WithRewards.sol";
 
@@ -31,8 +32,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     int24 public tickLower;
     int24 public tickUpper;
     uint24 public fee;
-    INonfungiblePositionManagerCustom public positionManager;
-    IUniswapV3StakerCustom public poolStaker;
+    INonfungiblePositionManager public positionManager;
+    IUniswapV3Staker public poolStaker;
     IPoolStakerV3WithRewards public stakerHelper;
     mapping(uint256 => uint256) tokenIdIndex; /* tokenId => stakes index */
     uint256[] stakes; /* tokenId */
@@ -44,8 +45,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         int24 tickLower_,
         int24 tickUpper_,
         uint24 fee_,
-        INonfungiblePositionManagerCustom positionManager_,
-        IUniswapV3StakerCustom poolStaker_,
+        INonfungiblePositionManager positionManager_,
+        IUniswapV3Staker poolStaker_,
         IPoolStakerV3WithRewards stakerHelper_
     ) {
         token0 = token0_;
@@ -70,7 +71,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         uint256 amount1Min,
         uint256 deadline
     ) public {
-        INonfungiblePositionManagerCustom.MintParams memory params = _getMintBaseParams();
+        INonfungiblePositionManager.MintParams memory params = _getMintBaseParams();
 
         params.amount0Desired = amount0Desired;
         params.amount1Desired = amount1Desired;
@@ -131,7 +132,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         return liquidity;
     }
 
-    function _getMintBaseParams() private view returns (INonfungiblePositionManagerCustom.MintParams memory params) {
+    function _getMintBaseParams() private view returns (INonfungiblePositionManager.MintParams memory params) {
         params.token0 = address(token0);
         params.token1 = address(token1);
         params.fee = fee;
@@ -162,9 +163,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
 
         // Decrease liquidity to 0
 
-
-            INonfungiblePositionManagerCustom.DecreaseLiquidityParams memory decreaseParams
-         = INonfungiblePositionManagerCustom.DecreaseLiquidityParams({
+        INonfungiblePositionManager.DecreaseLiquidityParams memory decreaseParams = INonfungiblePositionManager
+        .DecreaseLiquidityParams({
             tokenId: tokenId,
             liquidity: liquidity,
             amount0Min: 0,
@@ -174,8 +174,7 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
         positionManager.decreaseLiquidity(decreaseParams);
 
         // Collect liquidity + fees
-        INonfungiblePositionManagerCustom.CollectParams memory collectParams = INonfungiblePositionManagerCustom
-        .CollectParams({
+        INonfungiblePositionManager.CollectParams memory collectParams = INonfungiblePositionManager.CollectParams({
             tokenId: tokenId,
             recipient: _msgSender(),
             amount0Max: type(uint128).max,

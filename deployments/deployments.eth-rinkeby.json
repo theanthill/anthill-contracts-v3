@@ -4158,7 +4158,7 @@
       {
         "inputs": [
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -4707,12 +4707,12 @@
             "type": "uint24"
           },
           {
-            "internalType": "contract INonfungiblePositionManagerCustom",
+            "internalType": "contract INonfungiblePositionManager",
             "name": "positionManager_",
             "type": "address"
           },
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -4846,7 +4846,7 @@
         "name": "poolStaker",
         "outputs": [
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "",
             "type": "address"
           }
@@ -4860,7 +4860,7 @@
         "name": "positionManager",
         "outputs": [
           {
-            "internalType": "contract INonfungiblePositionManagerCustom",
+            "internalType": "contract INonfungiblePositionManager",
             "name": "",
             "type": "address"
           }
@@ -4990,7 +4990,7 @@
       {
         "inputs": [
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -5539,12 +5539,12 @@
             "type": "uint24"
           },
           {
-            "internalType": "contract INonfungiblePositionManagerCustom",
+            "internalType": "contract INonfungiblePositionManager",
             "name": "positionManager_",
             "type": "address"
           },
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "poolStaker_",
             "type": "address"
           },
@@ -5678,7 +5678,7 @@
         "name": "poolStaker",
         "outputs": [
           {
-            "internalType": "contract IUniswapV3StakerCustom",
+            "internalType": "contract IUniswapV3Staker",
             "name": "",
             "type": "address"
           }
@@ -5692,7 +5692,7 @@
         "name": "positionManager",
         "outputs": [
           {
-            "internalType": "contract INonfungiblePositionManagerCustom",
+            "internalType": "contract INonfungiblePositionManager",
             "name": "",
             "type": "address"
           }

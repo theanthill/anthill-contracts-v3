@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity =0.7.6;
 
 /**
  * @dev This implements an optional extension of {ERC721} defined in the EIP that adds
