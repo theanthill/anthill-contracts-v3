@@ -64,22 +64,14 @@ async function addLiquidity(network, account, pool, positionManager, oracle, ini
         approveIfNot(otherToken, account, liquidityHelper.address, otherTokenAmount),
     ]);
 
-    console.log(
+    // TODO: Do not create the liquidity now, it will be done manually later
+    /*console.log(
         `  - Adding liquidity for the ${pool.mainToken}/${pool.otherToken} pool (${getDisplayBalance(
             mainTokenAmount
         )}/${getDisplayBalance(otherTokenAmount)})`
     );
     await liquidityHelper.addLiquidityAndStake(mainTokenAmount, otherTokenAmount, 0, 0, deadline());
-
-    /*const tokenId = await liquidityHelper.tokenId();
-    const liquidity = await liquidityHelper.liquidity();
-    const amount0 = await liquidityHelper.amount0();
-    const amount1 = await liquidityHelper.amount1();
-
-    console.log(
-        `tokenId: ${tokenId.toString()}, liquidity: ${getDisplayBalance(BigNumber(liquidity))}, 
-        amount0: ${getDisplayBalance(BigNumber(amount0))}, amount1: ${getDisplayBalance(BigNumber(amount1))}`
-    );*/
+    */
 }
 
 async function approveIfNot(token, owner, spender, amount) {
