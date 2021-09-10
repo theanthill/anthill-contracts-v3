@@ -1,9 +1,28 @@
-node_modules
-.secret
-build
-cache
-typechain
-*.code-workspace
-artifacts
+# directories
+.coverage_artifacts/
+.coverage_cache/
+.coverage_contracts/
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+artifacts/
+build/
+cache/
+coverage/
+dist/
+lib/
+node_modules/
+typechain/
+
+# files
+*.env
 *.log
-.env
+*.tsbuildinfo
+*.code-workspace
+coverage.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
