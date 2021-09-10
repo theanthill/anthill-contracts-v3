@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity =0.7.6;
+pragma abicoder v2;
 
 /**
     Oracle to consult the current price of the token
 */
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
-import "../libraries/PancakeOracleLibrary.sol";
+//import "../libraries/PancakeOracleLibrary.sol";
 import "../libraries/FixedPoint.sol";
 
-import "../interfaces/IERC20Extended.sol";
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IStdReference.sol";
 

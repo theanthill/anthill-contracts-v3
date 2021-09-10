@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity =0.7.6;
 
 /**
     ANTETH-LP token pool. LP tokens staked here will generate ANT Token rewards
@@ -10,7 +10,7 @@ import "../core/PoolStakerV3WithRewards.sol";
 
 contract BUSDANTPoolStakerANT is PoolStakerV3WithRewards {
     constructor(
-        IUniswapV3StakerCustom poolStaker_,
+        IUniswapV3Staker poolStaker_,
         IUniswapV3Pool pool_,
         IERC20Minimal rewardToken_,
         address refundee_

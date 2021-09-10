@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity =0.7.6;
 
 /**
     Helper for providing liquidity to a the ANT-ETH pool
@@ -13,8 +13,8 @@ contract ETHANTPoolHelper is LiquidityStakingHelper {
         int24 tickLower_,
         int24 tickUpper_,
         uint24 fee_,
-        INonfungiblePositionManagerCustom positionManager_,
-        IUniswapV3StakerCustom poolStaker_,
+        INonfungiblePositionManager positionManager_,
+        IUniswapV3Staker poolStaker_,
         IPoolStakerV3WithRewards stakerHelper_
     )
         LiquidityStakingHelper(
