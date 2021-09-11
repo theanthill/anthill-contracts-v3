@@ -28,6 +28,7 @@ const rinkebyMnemonic = process.env['ETHEREUM_RINKEBY_MNEMONIC'];
 const arbitrumTestnetMnemonic = process.env['ARBITRUM_TESTNET_MNEMONIC'];
 
 const infuraKey = process.env['INFURA_KEY'];
+const alchemyKey = process.env['ALCHEMY_KEY'];
 
 module.exports = {
     /**
@@ -114,7 +115,7 @@ module.exports = {
                     mnemonic: {
                         phrase: arbitrumTestnetMnemonic,
                     },
-                    providerOrUrl: 'https://arbitrum-rinkeby.infura.io/v3/' + infuraKey,
+                    providerOrUrl: 'https://arb-rinkeby.g.alchemy.com/v2/' + alchemyKey,
                     addressIndex: 0,
                     numberOfAddresses: 1,
                     network_id: 421611,
