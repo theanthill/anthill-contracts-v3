@@ -3828,6 +3828,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/yargs-parser@npm:*":
+  version: 20.2.1
+  resolution: "@types/yargs-parser@npm:20.2.1"
+  checksum: 1d039e64494a7a61ddd278349a3dc60b19f99ff0517425696e796f794e4252452b9d62178e69755ad03f439f9dc0c8c3d7b3a1201b3a24e134bac1a09fa11eaa
+  languageName: node
+  linkType: hard
+
+"@types/yargs@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "@types/yargs@npm:17.0.2"
+  dependencies:
+    "@types/yargs-parser": "*"
+  checksum: 6f4600d3b786c0eb083782f59c9ed61bb4c204269b0a07819bb9e9b1fc29deaf4fe28abde7dca5fbf3cf851beca9458cbcf63ebd128ebfe83d31002d84337b31
+  languageName: node
+  linkType: hard
+
 "@types/zen-observable@npm:0.8.3":
   version: 0.8.3
   resolution: "@types/zen-observable@npm:0.8.3"
@@ -4517,6 +4533,7 @@ __metadata:
     "@types/fs-extra": ^9.0.12
     "@types/mocha": ^9.0.0
     "@types/node": ^16.9.1
+    "@types/yargs": ^17.0.2
     "@typescript-eslint/eslint-plugin": ^4.31.0
     "@typescript-eslint/parser": ^4.31.0
     "@uniswap/v3-core": ^1.0.0
@@ -4533,6 +4550,7 @@ __metadata:
     ethereum-waffle: ^3.4.0
     ethers: ^5.4.6
     fs-extra: ^10.0.0
+    ganache-cli: ^6.12.2
     hardhat: ^2.6.4
     hardhat-deploy: ^0.9.1
     hardhat-deploy-ethers: ^0.3.0-beta.10
