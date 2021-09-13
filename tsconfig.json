@@ -17,6 +17,6 @@
     "target": "es6"
   },
   "exclude": ["node_modules"],
-  "files": ["./hardhat.config.ts"],
-  "include": ["tasks/**/*.ts", "test/**/*.ts", "typechain/**/*.d.ts", "typechain/**/*.ts"]
+  "files": ["./hardhat.config.ts", "hardhat.helpers.ts"],
+  "include": ["deploy/**/*.ts","config/**/*.ts","tasks/**/*.ts", "test/**/*.ts", "typechain/**/*.d.ts", "typechain/**/*.ts", "hardhat.helpers.ts"]
 }

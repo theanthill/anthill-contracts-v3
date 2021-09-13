@@ -13,42 +13,10 @@ import {resolve} from 'path';
 
 import {config as dotenvConfig} from 'dotenv';
 import {HardhatUserConfig} from 'hardhat/config';
-import {NetworkUserConfig} from 'hardhat/types';
+
+import {getInfuraChainConfig, getAlchemyChainConfig, getHardhatChainConfig} from './hardhat.helpers';
 
 dotenvConfig({path: resolve(__dirname, './.env')});
-
-const chainIds = {
-    goerli: 5,
-    hardhat: 31337,
-    kovan: 42,
-    mainnet: 1,
-    rinkeby: 4,
-    ropsten: 3,
-};
-
-// Ensure that we have all the environment variables we need.
-const mnemonic: string | undefined = process.env.MNEMONIC;
-if (!mnemonic) {
-    throw new Error('Please set your MNEMONIC in a .env file');
-}
-
-const infuraApiKey: string | undefined = process.env.INFURA_API_KEY;
-if (!infuraApiKey) {
-    throw new Error('Please set your INFURA_API_KEY in a .env file');
-}
-
-function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
-    const url: string = 'https://' + network + '.infura.io/v3/' + infuraApiKey;
-    return {
-        accounts: {
-            count: 10,
-            mnemonic,
-            path: "m/44'/60'/0'/0",
-        },
-        chainId: chainIds[network],
-        url,
-    };
-}
 
 const config: HardhatUserConfig = {
     defaultNetwork: 'hardhat',
@@ -63,16 +31,12 @@ const config: HardhatUserConfig = {
         src: './contracts',
     },
     networks: {
-        hardhat: {
-            accounts: {
-                mnemonic,
-            },
-            chainId: chainIds.hardhat,
-        },
-        goerli: getChainConfig('goerli'),
-        kovan: getChainConfig('kovan'),
-        rinkeby: getChainConfig('rinkeby'),
-        ropsten: getChainConfig('ropsten'),
+        hardhat: getHardhatChainConfig(),
+        goerli: getInfuraChainConfig('goerli'),
+        kovan: getInfuraChainConfig('kovan'),
+        rinkeby: getInfuraChainConfig('rinkeby'),
+        ropsten: getInfuraChainConfig('ropsten'),
+        'arb-rinkeby': getAlchemyChainConfig('arb-rinkeby'),
     },
     paths: {
         artifacts: './artifacts',
@@ -99,6 +63,14 @@ const config: HardhatUserConfig = {
     typechain: {
         outDir: 'typechain',
         target: 'ethers-v5',
+        externalArtifacts: [
+            '@uniswap/v3-periphery/artifacts/contracts/interfaces/INonfungiblePositionManager.sol/INonfungiblePositionManager.json',
+            '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json',
+            '@uniswap/v3-periphery/artifacts/contracts/interfaces/ISwapRouter.sol/ISwapRouter.json',
+            '@uniswap/v3-staker/artifacts/contracts/interfaces/IUniswapV3Staker.sol/IUniswapV3Staker.json',
+            '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json',
+            '@uniswap/v3-periphery/artifacts/contracts/interfaces/IQuoter.sol/IQuoter.json',
+        ],
     },
 };
 
