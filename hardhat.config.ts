@@ -13,12 +13,7 @@ import {resolve} from 'path';
 import {config as dotenvConfig} from 'dotenv';
 import {HardhatUserConfig} from 'hardhat/config';
 
-import {
-    getInfuraChainConfig,
-    getAlchemyChainConfig,
-    getHardhatChainConfig,
-    getLocalhostChainConfig,
-} from './hardhat.helpers';
+import {getChainConfig, getHardhatChainConfig, getLocalhostChainConfig} from './hardhat.helpers';
 
 dotenvConfig({path: resolve(__dirname, './.env')});
 
@@ -37,11 +32,11 @@ const config: HardhatUserConfig = {
     networks: {
         localhost: getLocalhostChainConfig(),
         hardhat: getHardhatChainConfig(),
-        goerli: getInfuraChainConfig('goerli'),
-        kovan: getInfuraChainConfig('kovan'),
-        rinkeby: getInfuraChainConfig('rinkeby'),
-        ropsten: getInfuraChainConfig('ropsten'),
-        'arb-rinkeby': getAlchemyChainConfig('arb-rinkeby'),
+        goerli: getChainConfig('goerli'),
+        kovan: getChainConfig('kovan'),
+        rinkeby: getChainConfig('rinkeby'),
+        ropsten: getChainConfig('ropsten'),
+        'arb-rinkeby': getChainConfig('arb-rinkeby'),
     },
     paths: {
         artifacts: './artifacts',

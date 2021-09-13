@@ -15,7 +15,7 @@ type AutoOptions = {
     'arb-rinkeby': 'auto' | number;
 };
 
-const chainIds = {
+export const ChainIds = {
     goerli: 5,
     hardhat: 31337,
     kovan: 42,
@@ -25,7 +25,7 @@ const chainIds = {
     'arb-rinkeby': 421611,
 };
 
-const gasPrice: AutoOptions = {
+export const GasPrice: AutoOptions = {
     goerli: 'auto',
     hardhat: 'auto',
     kovan: 'auto',
@@ -35,7 +35,7 @@ const gasPrice: AutoOptions = {
     'arb-rinkeby': 'auto',
 };
 
-const gas: AutoOptions = {
+export const Gas: AutoOptions = {
     goerli: 'auto',
     hardhat: 'auto',
     kovan: 'auto',
@@ -44,6 +44,9 @@ const gas: AutoOptions = {
     ropsten: 'auto',
     'arb-rinkeby': 1287983320,
 };
+
+export const Networks = Object.keys(ChainIds);
+export type NetworksType = keyof typeof ChainIds;
 
 // Ensure that we have all the environment variables we need.
 export const mnemonic: string | undefined = process.env.MNEMONIC;
@@ -66,7 +69,7 @@ export function getHardhatChainConfig(): HardhatNetworkUserConfig {
         accounts: {
             mnemonic,
         },
-        chainId: chainIds.hardhat,
+        chainId: ChainIds.hardhat,
     };
 }
 
@@ -79,50 +82,32 @@ export function getLocalhostChainConfig(): NetworkUserConfig {
     };
 }
 
-export function getInfuraChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
-    if (network === 'hardhat') {
+export function getChainConfig(network: NetworksType): NetworkUserConfig {
+    if (network === 'arb-rinkeby') {
+        const url: string = 'https://' + network + '.g.alchemy.com/v2/' + alchemyApiKey;
         return {
             accounts: {
+                count: 10,
                 mnemonic,
+                path: "m/44'/60'/0'/0",
             },
-            chainId: chainIds.hardhat,
+            chainId: ChainIds[network],
+            gas: Gas[network] || 'auto',
+            gasPrice: GasPrice[network] || 'auto',
+            url,
         };
-    }
-
-    const url: string = 'https://' + network + '.infura.io/v3/' + infuraApiKey;
-    return {
-        accounts: {
-            count: 10,
-            mnemonic,
-            path: "m/44'/60'/0'/0",
-        },
-        chainId: chainIds[network],
-        gas: gas[network],
-        gasPrice: gasPrice[network],
-        url,
-    };
-}
-
-export function getAlchemyChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
-    if (network === 'hardhat') {
+    } else {
+        const url: string = 'https://' + network + '.infura.io/v3/' + infuraApiKey;
         return {
             accounts: {
+                count: 10,
                 mnemonic,
+                path: "m/44'/60'/0'/0",
             },
-            chainId: chainIds.hardhat,
+            chainId: ChainIds[network],
+            gas: Gas[network],
+            gasPrice: GasPrice[network],
+            url,
         };
     }
-
-    const url: string = 'https://' + network + '.g.alchemy.com/v2/' + alchemyApiKey;
-    return {
-        accounts: {
-            count: 10,
-            mnemonic,
-            path: "m/44'/60'/0'/0",
-        },
-        chainId: chainIds[network],
-        gas: gas[network] || 'auto',
-        gasPrice: gasPrice[network] || 'auto',
-        url,
-    };
 }
