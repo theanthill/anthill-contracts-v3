@@ -13,7 +13,7 @@ export const ANTBUSDLPTokenPool = {
     contractName: 'BUSDANTPoolStakerANT',
     helperContract: 'BUSDANTPoolHelper',
     mainToken: 'AntToken',
-    otherToken: 'BUSD',
+    otherToken: 'MockBUSD',
 };
 
 // ANT-BNB LP Tokens pool that generate ANT Token rewards
@@ -29,7 +29,7 @@ export const ANTETHLPTokenPool = {
     contractName: 'ETHANTPoolStakerANT',
     helperContract: 'ETHANTPoolHelper',
     mainToken: 'AntToken',
-    otherToken: 'ETH',
+    otherToken: 'MockETH',
 };
 
 export const INITIAL_BSC_DEPLOYMENT_POOLS = [ANTBUSDLPTokenPool, ANTBNBLPTokenPool];

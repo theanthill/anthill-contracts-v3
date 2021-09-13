@@ -12,7 +12,6 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     await deploy('Migrations', {
         from: deployer,
         log: true,
-        skipIfAlreadyDeployed: true,
     });
 };
 

@@ -1,17 +1,17 @@
-const JSBI = require('jsbi');
+import JSBI from 'jsbi';
 //import invariant from 'tiny-invariant'
 
-const MAX_SAFE_INTEGER = JSBI.BigInt(Number.MAX_SAFE_INTEGER);
+export const MAX_SAFE_INTEGER = JSBI.BigInt(Number.MAX_SAFE_INTEGER);
 
-const ZERO = JSBI.BigInt(0);
-const ONE = JSBI.BigInt(1);
-const TWO = JSBI.BigInt(2);
+export const ZERO = JSBI.BigInt(0);
+export const ONE = JSBI.BigInt(1);
+export const TWO = JSBI.BigInt(2);
 
 /**
  * Computes floor(sqrt(value))
  * @param value the value for which to compute the square root, rounded down
  */
-function sqrt(value) {
+export function sqrt(value: JSBI): JSBI {
     //invariant(JSBI.greaterThanOrEqual(value, ZERO), 'NEGATIVE')
 
     // rely on built in sqrt if possible
@@ -29,8 +29,3 @@ function sqrt(value) {
     }
     return z;
 }
-
-module.exports = {
-    sqrt,
-    MAX_SAFE_INTEGER,
-};

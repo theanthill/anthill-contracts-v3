@@ -8,8 +8,8 @@ import {DeployFunction} from 'hardhat-deploy/types';
 const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const {deployer} = await hre.getNamedAccounts();
     const {deploy} = hre.deployments;
-    const deployments = await hre.deployments.all();
 
+    console.log('[Deploy system tokens]');
     await deploy('AntToken', {
         from: deployer,
         log: true,

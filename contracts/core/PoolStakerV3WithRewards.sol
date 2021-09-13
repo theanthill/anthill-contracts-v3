@@ -16,7 +16,11 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "../access/OperatorAccessControl.sol";
 
 abstract contract IPoolStakerV3WithRewards {
-    function createIncentive(uint256 rewardAmount) external virtual;
+    function createIncentive(
+        uint256 rewardAmount,
+        uint256 startTime_,
+        uint256 endTime_
+    ) external virtual;
 
     function stakeToken(uint256 tokenId) external virtual;
 

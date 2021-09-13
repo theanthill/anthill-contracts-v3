@@ -18,7 +18,7 @@ export const ExternalArtifacts: ExternalArtifacts = {
 };
 
 export function getDeploymentSubmission(contractName: string, network: string): DeploymentSubmission {
-    let deploymentSubmission: DeploymentSubmission = ExternalArtifacts[contractName];
+    const deploymentSubmission: DeploymentSubmission = ExternalArtifacts[contractName];
 
     if (contractName in KnownContracts) {
         const address: string = KnownContracts[contractName][network];

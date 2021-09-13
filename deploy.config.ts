@@ -16,7 +16,7 @@ export const OPERATOR_TIMELOCK_PERIOD = 2 * 86400; // 2 Days
 export const LIQUIDITY_FEE = 3000;
 
 // Real networks with already deployed Swaps and BUSD
-export const LOCAL_NETWORKS = ['hardhat'];
+export const LOCAL_NETWORKS = ['hardhat', 'localhost'];
 export const TEST_NETWORKS = [
     'bsc-testnet',
     'bsc-local-testnet',
@@ -24,7 +24,7 @@ export const TEST_NETWORKS = [
     'eth-local-ropsten',
     'eth-rinkeby',
     'eth-local-rinkeby',
-    'arbitrum-testnet',
+    'arb-rinkeby',
 ];
 export const MAIN_NETWORKS = ['bsc-mainnet', 'bsc-local-mainnet', 'eth-mainnet', 'eth-local-mainnet'];
 export const BSC_NETWORKS = ['bsc-testnet', 'bsc-local-testnet', 'bsc-mainnet', 'bsc-local-mainnet'];
@@ -35,5 +35,5 @@ export const ETH_NETWORKS = [
     'eth-local-rinkeby',
     'eth-mainnet',
     'eth-local-mainnet',
-    'arbitrum-testnet',
+    'arb-rinkeby',
 ];
