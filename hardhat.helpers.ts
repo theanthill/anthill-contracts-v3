@@ -70,6 +70,15 @@ export function getHardhatChainConfig(): HardhatNetworkUserConfig {
     };
 }
 
+export function getLocalhostChainConfig(): NetworkUserConfig {
+    return {
+        url: 'http://127.0.0.1:8545',
+        accounts: {
+            mnemonic,
+        },
+    };
+}
+
 export function getInfuraChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
     if (network === 'hardhat') {
         return {

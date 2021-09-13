@@ -67,10 +67,8 @@ async function addLiquidity(
     await otherToken.mint(account, otherTokenAmount);
 
     console.log(`    - Approve ${account} as spender for tokens`);
-    await Promise.all([
-        approveIfNot(mainToken as BaseToken, account, liquidityHelper.address, mainTokenAmount),
-        approveIfNot(otherToken as BaseToken, account, liquidityHelper.address, otherTokenAmount),
-    ]);
+    await approveIfNot(mainToken as BaseToken, account, liquidityHelper.address, mainTokenAmount);
+    await approveIfNot(otherToken as BaseToken, account, liquidityHelper.address, otherTokenAmount);
 
     // TODO: Do not create the liquidity now, it will be done manually later
     /*console.log(

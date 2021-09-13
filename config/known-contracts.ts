@@ -19,6 +19,7 @@ export const KnownContracts: ExternalContractMap = {
         'eth-mainnet': '0x1F98431c8aD98523631AE4a59f267346ea31F984',
         'arbitrum-testnet': '0x1F98431c8aD98523631AE4a59f267346ea31F984',
         hardhat: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
+        localhost: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
     },
 
     ISwapRouter: {
@@ -31,6 +32,7 @@ export const KnownContracts: ExternalContractMap = {
         'eth-mainnet': '0xE592427A0AEce92De3Edee1F18E0157C05861564',
         'arbitrum-testnet': '0xE592427A0AEce92De3Edee1F18E0157C05861564',
         hardhat: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
+        localhost: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
     },
 
     INonfungiblePositionManager: {
@@ -43,6 +45,7 @@ export const KnownContracts: ExternalContractMap = {
         'eth-mainnet': '0xC36442b4a4522E871399CD717aBDD847Ab11FE88',
         'arbitrum-testnet': '0xC36442b4a4522E871399CD717aBDD847Ab11FE88',
         hardhat: '0xC36442b4a4522E871399CD717aBDD847Ab11FE88',
+        localhost: '0xC36442b4a4522E871399CD717aBDD847Ab11FE88',
     },
 
     IUniswapV3Staker: {
@@ -55,6 +58,7 @@ export const KnownContracts: ExternalContractMap = {
         'eth-mainnet': '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
         'arbitrum-testnet': '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
         hardhat: '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
+        localhost: '0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d',
     },
     IQuoter: {
         // Ethereum
@@ -66,5 +70,6 @@ export const KnownContracts: ExternalContractMap = {
         'eth-mainnet': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
         'arbitrum-testnet': '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
         hardhat: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+        localhost: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
     },
 };
