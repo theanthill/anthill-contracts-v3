@@ -7,14 +7,18 @@ import 'solidity-coverage';
 
 import './tasks/accounts';
 import './tasks/clean';
-import './tasks/deployers';
 
 import {resolve} from 'path';
 
 import {config as dotenvConfig} from 'dotenv';
 import {HardhatUserConfig} from 'hardhat/config';
 
-import {getInfuraChainConfig, getAlchemyChainConfig, getHardhatChainConfig} from './hardhat.helpers';
+import {
+    getInfuraChainConfig,
+    getAlchemyChainConfig,
+    getHardhatChainConfig,
+    getLocalhostChainConfig,
+} from './hardhat.helpers';
 
 dotenvConfig({path: resolve(__dirname, './.env')});
 
@@ -31,6 +35,7 @@ const config: HardhatUserConfig = {
         src: './contracts',
     },
     networks: {
+        localhost: getLocalhostChainConfig(),
         hardhat: getHardhatChainConfig(),
         goerli: getInfuraChainConfig('goerli'),
         kovan: getInfuraChainConfig('kovan'),
