@@ -40,7 +40,7 @@ export const Gas: AutoOptions = {
     hardhat: "auto",
     kovan: "auto",
     mainnet: "auto",
-    rinkeby: 5500000,
+    rinkeby: 20000000,
     ropsten: "auto",
     "arb-rinkeby": 1287983320,
 };

@@ -45,8 +45,8 @@ async function addLiquidity(
     initialAllocation: BigNumber,
 ) {
     console.log(`  - Adding liquidity for the ${poolConfig.mainToken}/${poolConfig.otherToken} pool`);
-    const mainToken = await ethers.getContract(poolConfig.mainToken);
-    const otherToken = await ethers.getContract(poolConfig.otherToken);
+    const mainToken = (await ethers.getContract(poolConfig.mainToken)) as BaseToken;
+    const otherToken = (await ethers.getContract(poolConfig.otherToken)) as BaseToken;
 
     // Get the price rate
     const otherTokenRate = await oracle.getReferenceData(poolConfig.otherToken, "BUSD");
@@ -61,10 +61,10 @@ async function addLiquidity(
 
     // Mint some tokens for the liquidity helper
     console.log(`    - Minting ${getDisplayBalance(mainTokenAmount)} for ${poolConfig.mainToken}`);
-    await mainToken.mint(account, mainTokenAmount);
+    await mainToken.mint(account, mainTokenAmount).then(tx => tx.wait());
 
     console.log(`    - Minting ${getDisplayBalance(otherTokenAmount)} for ${poolConfig.otherToken}`);
-    await otherToken.mint(account, otherTokenAmount);
+    await otherToken.mint(account, otherTokenAmount).then(tx => tx.wait());
 
     console.log(`    - Approve ${account} as spender for tokens`);
     await approveIfNot(mainToken as BaseToken, account, liquidityHelper.address, mainTokenAmount);
@@ -85,7 +85,7 @@ async function approveIfNot(token: BaseToken, owner: string, spender: string, am
     if (allowance.gte(amount)) {
         return;
     }
-    await token.approve(spender, amount);
+    await token.approve(spender, amount).then(tx => tx.wait());
     console.log(
         `      - Approved ${token.symbol ? await token.symbol() : token.address} for ${getDisplayBalance(
             amount,

@@ -9,6 +9,7 @@ import { ADMIN_ACCOUNT, TEST_ADMIN_ACCOUNT, INITIAL_ETH_DEPLOYMENT_POOLS } from 
 import { MAIN_NETWORKS } from "../deploy.config";
 
 import { HardhatEthersHelpers } from "hardhat-deploy-ethers/dist/src/types";
+import { AdminAccessControl, OperatorAccessControl } from "../typechain";
 
 const tags: string[] = [];
 
@@ -57,12 +58,12 @@ async function assignOperator(
     contracts: string[],
 ) {
     for await (const contractName of contracts) {
-        const contract = await ethers.getContract(contractName);
+        const contract = (await ethers.getContract(contractName)) as OperatorAccessControl;
 
         console.log(
             `  - Assign ${operatorName} (${operatorAddress}) as ${contractName} (${contract.address}) Operator`,
         );
-        await contract.transferOperator(operatorAddress);
+        await contract.transferOperator(operatorAddress).then(tx => tx.wait());
     }
 }
 
@@ -73,10 +74,10 @@ async function assignAdmin(
     contracts: string[],
 ) {
     for await (const contractName of contracts) {
-        const contract = await ethers.getContract(contractName);
+        const contract = (await ethers.getContract(contractName)) as AdminAccessControl;
 
         console.log(`  - Assign ${accountName} (${accountAddress}) as ${contractName} (${contract.address}) Admin`);
-        await contract.transferAdmin(accountAddress);
+        await contract.transferAdmin(accountAddress).then(tx => tx.wait());
     }
 }
 

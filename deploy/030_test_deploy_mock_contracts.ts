@@ -44,8 +44,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         log: true,
     });
     const mockBUSD = (await ethers.getContract("MockBUSD")) as MockBUSD;
-    let tx = await mockBUSD.mint(deployer, busdInitialAllocation, { from: deployer });
-    await tx.wait();
+    await mockBUSD.mint(deployer, busdInitialAllocation).then(tx => tx.wait());
 
     tags.push("MockBUSD");
 
@@ -59,8 +58,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     const ethInitialAllocation = unit.mul(TEST_INITIAL_ETH_SUPPLY);
     const mockETH = (await ethers.getContract("MockBUSD")) as MockETH;
 
-    tx = await mockETH.mint(deployer, ethInitialAllocation, { from: deployer });
-    await tx.wait();
+    await mockETH.mint(deployer, ethInitialAllocation).then(tx => tx.wait());
 
     tags.push("MockETH");
 
@@ -83,12 +81,9 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         ],
     });
 
-    tx = await antToken.mint(tokenFaucet.address, faucetInitialAllocation);
-    await tx.wait();
-    tx = await mockBUSD.mint(tokenFaucet.address, faucetInitialAllocation);
-    await tx.wait();
-    tx = await mockETH.mint(tokenFaucet.address, faucetInitialAllocation);
-    await tx.wait();
+    await antToken.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
+    await mockBUSD.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
+    await mockETH.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
 
     tags.push("TokenFaucet");
 

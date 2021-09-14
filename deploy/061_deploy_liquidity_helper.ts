@@ -8,7 +8,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { INITIAL_ETH_DEPLOYMENT_POOLS } from "../config";
 import { LIQUIDITY_FEE } from "../deploy.config";
 
-import { AntToken, INonfungiblePositionManager, IUniswapV3Staker } from "../typechain";
+import { AntToken, INonfungiblePositionManager, IUniswapV3Staker, PoolStakerV3WithRewards } from "../typechain";
 import { encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS } from "../utils/helperFunctions";
 import { TickMath } from "../utils/TickMath";
 
@@ -29,7 +29,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
 
     for (const poolConfig of initialDeploymentPools) {
         const otherToken = await ethers.getContract(poolConfig.otherToken);
-        const poolContract = await ethers.getContract(poolConfig.contractName);
+        const poolContract = (await ethers.getContract(poolConfig.contractName)) as PoolStakerV3WithRewards;
 
         let priceLower, priceUpper;
         let token0, token1;
@@ -72,7 +72,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         });
 
         console.log(`    - Assigning liquidity helper as ANT/${poolConfig.otherToken} staking pool operator`);
-        await poolContract.transferOperator(liquidityHelper.address);
+        await poolContract.transferOperator(liquidityHelper.address).then(tx => tx.wait());
     }
 };
 

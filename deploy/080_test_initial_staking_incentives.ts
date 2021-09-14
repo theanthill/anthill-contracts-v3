@@ -36,7 +36,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         const pool = (await ethers.getContract(poolConfig.contractName)) as IPoolStakerV3WithRewards;
 
         console.log(`  - Minting ${getDisplayBalance(rewardPerPool)} ANT Tokens for rewards`);
-        await antToken.mint(pool.address, rewardPerPool);
+        await antToken.mint(pool.address, rewardPerPool).then(tx => tx.wait());
 
         const YEAR = 365 * 86400;
         const Now = Math.round(Date.now() / 1000) + 180;
@@ -47,7 +47,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
                 poolConfig.contractName
             } pool`,
         );
-        await pool.createIncentive(rewardPerPool, Now, YearFromNow);
+        await pool.createIncentive(rewardPerPool, Now, YearFromNow).then(tx => tx.wait());
     }
 };
 

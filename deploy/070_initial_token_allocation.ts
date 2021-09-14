@@ -39,10 +39,10 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         const treasuryANTSAllocation = unit.mul(MAX_ANTS_SUPPLY);
 
         console.log("    - Minting " + TREASURY_ANT_ALLOCATION + " Ant Tokens to Treasury Account");
-        await antToken.mint(TREASURY_ACCOUNT, treasuryANTAllocation);
+        await antToken.mint(TREASURY_ACCOUNT, treasuryANTAllocation).then(tx => tx.wait());
 
         console.log("    - Minting " + MAX_ANTS_SUPPLY + " Ant Shares to Treasury Account");
-        await antShare.mint(TREASURY_ACCOUNT, treasuryANTSAllocation);
+        await antShare.mint(TREASURY_ACCOUNT, treasuryANTSAllocation).then(tx => tx.wait());
     } // Testnet
     else {
         console.log(`  - Using Testnet configuration`);
@@ -53,17 +53,17 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         const treasuryANTSAllocation = unit.mul(ANTSAllocation);
 
         console.log("    - Minting " + ANTAllocation + " Ant Tokens to Treasury Account");
-        await antToken.mint(TEST_TREASURY_ACCOUNT, treasuryANTAllocation);
+        await antToken.mint(TEST_TREASURY_ACCOUNT, treasuryANTAllocation).then(tx => tx.wait());
 
         console.log("    - Minting " + ANTSAllocation + " Ant Shares to Treasury Account");
-        await antShare.mint(TEST_TREASURY_ACCOUNT, treasuryANTSAllocation);
+        await antShare.mint(TEST_TREASURY_ACCOUNT, treasuryANTSAllocation).then(tx => tx.wait());
 
         const HQANTSAllocation = unit.mul(TEST_HQ_ANTS_ALLOCATION);
 
         // There is no allocation of Ant Token for the test HQ account as it will be
         // directly used to provide liquidity
         console.log("    - Minting " + TEST_HQ_ANTS_ALLOCATION + " Ant Shares to test HQ Account");
-        await antShare.mint(TEST_HQ_ACCOUNT, HQANTSAllocation);
+        await antShare.mint(TEST_HQ_ACCOUNT, HQANTSAllocation).then(tx => tx.wait());
     }
 };
 
