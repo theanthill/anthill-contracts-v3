@@ -29,7 +29,8 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         const otherToken = await ethers.getContract(poolConfig.otherToken);
 
         console.log(`  - Creating swap pool for the ANT/${poolConfig.otherToken} liquidity`);
-        await swapFactory.createPool(antToken.address, otherToken.address, LIQUIDITY_FEE);
+        let tx = await swapFactory.createPool(antToken.address, otherToken.address, LIQUIDITY_FEE);
+        await tx.wait();
 
         const poolAddress = await swapFactory.getPool(antToken.address, otherToken.address, LIQUIDITY_FEE);
         await console.log(`    - Pool created at address ${poolAddress}`);
@@ -38,8 +39,11 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
 
         await console.log(`    - Initialize pool`);
         const sqrtPriceX96 = encodeSqrtRatioX96(1, 1);
-        await pool.initialize(String(sqrtPriceX96));
-        await pool.increaseObservationCardinalityNext(16);
+        tx = await pool.initialize(String(sqrtPriceX96));
+        await tx.wait();
+
+        tx = await pool.increaseObservationCardinalityNext(16);
+        await tx.wait();
     }
 };
 
