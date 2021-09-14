@@ -14,4 +14,5 @@ module.exports = {
         mnemonic: process.env.MNEMONIC,
     },
     skipFiles: ["mocks", "test"],
+    configureYulOptimizer: true,
 };
