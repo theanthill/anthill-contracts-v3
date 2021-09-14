@@ -1,26 +1,26 @@
 /**
  * Creation of the LP Token Staking pools for the supported pairs
  */
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {DeployFunction} from 'hardhat-deploy/types';
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
 
-import {TEST_TREASURY_ACCOUNT, INITIAL_ETH_DEPLOYMENT_POOLS} from '../config';
-import {LIQUIDITY_FEE} from '../deploy.config';
+import { TEST_TREASURY_ACCOUNT, INITIAL_ETH_DEPLOYMENT_POOLS } from "../config";
+import { LIQUIDITY_FEE } from "../deploy.config";
 
-import {AntToken, IUniswapV3Factory, IUniswapV3Staker} from '../typechain';
+import { AntToken, IUniswapV3Factory, IUniswapV3Staker } from "../typechain";
 
 const tags: string[] = [];
 
 const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-    const {deployer} = await hre.getNamedAccounts();
+    const { deployer } = await hre.getNamedAccounts();
     const ethers = hre.ethers;
-    const {deploy} = hre.deployments;
+    const { deploy } = hre.deployments;
 
-    console.log('[Deploy Staking contracts]');
+    console.log("[Deploy Staking contracts]");
 
-    const antToken = (await ethers.getContract('AntToken')) as AntToken;
-    const swapFactory = (await ethers.getContract('IUniswapV3Factory')) as IUniswapV3Factory;
-    const poolStaker = (await ethers.getContract('IUniswapV3Staker')) as IUniswapV3Staker;
+    const antToken = (await ethers.getContract("AntToken")) as AntToken;
+    const swapFactory = (await ethers.getContract("IUniswapV3Factory")) as IUniswapV3Factory;
+    const poolStaker = (await ethers.getContract("IUniswapV3Staker")) as IUniswapV3Staker;
 
     const initialDeploymentPools = INITIAL_ETH_DEPLOYMENT_POOLS;
 

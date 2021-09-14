@@ -2,15 +2,15 @@
  * Allocation of Ant Tokens for Rewards Distributor and initial distribution, only for Testnet.
  * On the Mainnet the allocation will be done by the Treasury account
  */
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {DeployFunction} from 'hardhat-deploy/types';
-import {BigNumber} from 'ethers';
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
+import { BigNumber } from "ethers";
 
-import {TEST_REWARD_PER_STAKING_POOL, INITIAL_ETH_DEPLOYMENT_POOLS} from '../config';
-import {MAIN_NETWORKS} from '../deploy.config';
+import { TEST_REWARD_PER_STAKING_POOL, INITIAL_ETH_DEPLOYMENT_POOLS } from "../config";
+import { MAIN_NETWORKS } from "../deploy.config";
 
-import {AntToken, IPoolStakerV3WithRewards} from '../typechain';
-import {getDisplayBalance} from '../utils/helperFunctions';
+import { AntToken, IPoolStakerV3WithRewards } from "../typechain";
+import { getDisplayBalance } from "../utils/helperFunctions";
 
 const tags: string[] = [];
 
@@ -23,9 +23,9 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         return;
     }
 
-    console.log('[TEST: Providing initial staking incentives]');
+    console.log("[TEST: Providing initial staking incentives]");
 
-    const antToken = (await ethers.getContract('AntToken')) as AntToken;
+    const antToken = (await ethers.getContract("AntToken")) as AntToken;
 
     const initialDeploymentPools = INITIAL_ETH_DEPLOYMENT_POOLS;
 
@@ -45,7 +45,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         console.log(
             `  - Creating incentive of ${getDisplayBalance(rewardPerPool)} ANT tokens for ${
                 poolConfig.contractName
-            } pool`
+            } pool`,
         );
         await pool.createIncentive(rewardPerPool, Now, YearFromNow);
     }

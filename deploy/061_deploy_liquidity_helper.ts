@@ -2,28 +2,28 @@
  * Deploy the liquidity helper to allow for adding liquidity + staking LP tokens in one call
  */
 
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {DeployFunction} from 'hardhat-deploy/types';
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
 
-import {INITIAL_ETH_DEPLOYMENT_POOLS} from '../config';
-import {LIQUIDITY_FEE} from '../deploy.config';
+import { INITIAL_ETH_DEPLOYMENT_POOLS } from "../config";
+import { LIQUIDITY_FEE } from "../deploy.config";
 
-import {AntToken, INonfungiblePositionManager, IUniswapV3Staker} from '../typechain';
-import {encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS} from '../utils/helperFunctions';
-import {TickMath} from '../utils/TickMath';
+import { AntToken, INonfungiblePositionManager, IUniswapV3Staker } from "../typechain";
+import { encodeSqrtRatioX96, nearestUsableTick, TICK_SPACINGS } from "../utils/helperFunctions";
+import { TickMath } from "../utils/TickMath";
 
 const tags: string[] = [];
 
 const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-    const {deployer} = await hre.getNamedAccounts();
+    const { deployer } = await hre.getNamedAccounts();
     const ethers = hre.ethers;
-    const {deploy} = hre.deployments;
+    const { deploy } = hre.deployments;
 
-    console.log('[Deploy LiquidityHelper contracts]');
+    console.log("[Deploy LiquidityHelper contracts]");
 
-    const antToken = (await ethers.getContract('AntToken')) as AntToken;
-    const positionManager = (await ethers.getContract('INonfungiblePositionManager')) as INonfungiblePositionManager;
-    const poolStaker = (await ethers.getContract('IUniswapV3Staker')) as IUniswapV3Staker;
+    const antToken = (await ethers.getContract("AntToken")) as AntToken;
+    const positionManager = (await ethers.getContract("INonfungiblePositionManager")) as INonfungiblePositionManager;
+    const poolStaker = (await ethers.getContract("IUniswapV3Staker")) as IUniswapV3Staker;
 
     const initialDeploymentPools = INITIAL_ETH_DEPLOYMENT_POOLS;
 

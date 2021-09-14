@@ -42,8 +42,8 @@ contract Oracle is IOracle, EpochCounter {
     using FixedPoint for *;
 
     // Constants
-    string constant EXTERNAL_ORACLE_BASE = "BUSD";
-    string constant EXTERNAL_ORACLE_QUOTE = "USDC";
+    string public constant EXTERNAL_ORACLE_BASE = "BUSD";
+    string public constant EXTERNAL_ORACLE_QUOTE = "USDC";
 
     // Immutables
     IUniswapV3Pool public immutable pool;
@@ -84,6 +84,7 @@ contract Oracle is IOracle, EpochCounter {
 
         @dev Updates 1-day EMA price from PancakeSwap
     */
+    /* solhint-disable no-empty-blocks */
     function update() external override checkEpoch {
         // Obtain the TWAP for the latest block
         /*(uint256 price0Cumulative, uint256 price1Cumulative, uint32 blockTimestamp) = PancakeOracleLibrary
@@ -101,6 +102,8 @@ contract Oracle is IOracle, EpochCounter {
 
         emit Updated(price0CumulativeLast, price1CumulativeLast);*/
     }
+
+    /* solhint-disable no-empty-blocks */
 
     /**
         Returns the latest updated average price for the given token

@@ -36,14 +36,14 @@ abstract contract IPoolStakerV3WithRewards {
 contract PoolStakerV3WithRewards is OperatorAccessControl {
     using SafeMath for uint256;
 
-    IUniswapV3Staker poolStaker;
+    IUniswapV3Staker public poolStaker;
     IUniswapV3Pool public pool;
     IERC20Minimal public rewardToken;
     address public refundee;
     uint256 public startTime;
     uint256 public endTime;
 
-    uint256 rewardAmount;
+    uint256 public rewardAmount;
 
     mapping(uint256 => address) private owners;
 

@@ -1,7 +1,7 @@
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {DeployFunction} from 'hardhat-deploy/types';
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
 
-import {LOCAL_NETWORKS, TEST_NETWORKS, MAIN_NETWORKS} from '../deploy.config';
+import { LOCAL_NETWORKS, TEST_NETWORKS, MAIN_NETWORKS } from "../deploy.config";
 
 const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const network = hre.network.name;

@@ -5,11 +5,11 @@ pragma abicoder v2;
 import "../interfaces/IStdReference.sol";
 
 contract MockStdReference is IStdReference {
-    uint256 testRate = 1e18;
+    uint256 public testRate = 1e18;
 
-    bytes32 encodedANT;
-    bytes32 encodedBNB;
-    bytes32 encodedBUSD;
+    bytes32 public encodedANT;
+    bytes32 public encodedBNB;
+    bytes32 public encodedBUSD;
 
     constructor() {
         encodedANT = keccak256(abi.encodePacked("ANT"));

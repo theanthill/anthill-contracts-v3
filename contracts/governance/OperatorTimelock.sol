@@ -10,8 +10,10 @@ import "@openzeppelin/contracts/access/TimelockController.sol";
 import "../access/AdminAccessControl.sol";
 
 contract OperatorTimelock is TimelockController, AdminAccessControlHelper {
+    /* solhint-disable no-empty-blocks */
     constructor(uint256 minDelay, address[] memory admins)
         TimelockController(minDelay, admins, admins)
         AdminAccessControlHelper(TIMELOCK_ADMIN_ROLE, _msgSender())
     {}
+    /* solhint-disable no-empty-blocks */
 }

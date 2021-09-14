@@ -16,24 +16,24 @@ export const OPERATOR_TIMELOCK_PERIOD = 2 * 86400; // 2 Days
 export const LIQUIDITY_FEE = 3000;
 
 // Real networks with already deployed Swaps and BUSD
-export const LOCAL_NETWORKS = ['hardhat', 'localhost'];
+export const LOCAL_NETWORKS = ["hardhat", "localhost"];
 export const TEST_NETWORKS = [
-    'bsc-testnet',
-    'bsc-local-testnet',
-    'eth-ropsten',
-    'eth-local-ropsten',
-    'eth-rinkeby',
-    'eth-local-rinkeby',
-    'arb-rinkeby',
+    "bsc-testnet",
+    "bsc-local-testnet",
+    "eth-ropsten",
+    "eth-local-ropsten",
+    "eth-rinkeby",
+    "eth-local-rinkeby",
+    "arb-rinkeby",
 ];
-export const MAIN_NETWORKS = ['bsc-mainnet', 'bsc-local-mainnet', 'eth-mainnet', 'eth-local-mainnet'];
-export const BSC_NETWORKS = ['bsc-testnet', 'bsc-local-testnet', 'bsc-mainnet', 'bsc-local-mainnet'];
+export const MAIN_NETWORKS = ["bsc-mainnet", "bsc-local-mainnet", "eth-mainnet", "eth-local-mainnet"];
+export const BSC_NETWORKS = ["bsc-testnet", "bsc-local-testnet", "bsc-mainnet", "bsc-local-mainnet"];
 export const ETH_NETWORKS = [
-    'eth-ropsten',
-    'eth-local-ropsten',
-    'eth-rinkeby',
-    'eth-local-rinkeby',
-    'eth-mainnet',
-    'eth-local-mainnet',
-    'arb-rinkeby',
+    "eth-ropsten",
+    "eth-local-ropsten",
+    "eth-rinkeby",
+    "eth-local-rinkeby",
+    "eth-mainnet",
+    "eth-local-mainnet",
+    "arb-rinkeby",
 ];

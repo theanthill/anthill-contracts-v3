@@ -21,33 +21,33 @@ interface IAdminAccessControl {
     like TimelockController
  */
 abstract contract AdminAccessControlHelper is AccessControl {
-    bytes32 public immutable ADMIN_ACCESS_ROLE;
+    bytes32 public immutable adminAccessRole;
 
     address private _admin;
 
     constructor(bytes32 adminRoleID, address adminAddress) {
-        ADMIN_ACCESS_ROLE = adminRoleID;
+        adminAccessRole = adminRoleID;
 
         _admin = adminAddress;
     }
 
     // ==== MODIFIERS ====
     modifier onlyAdmin() {
-        require(hasRole(ADMIN_ACCESS_ROLE, _msgSender()), "AdminAccessControlHelper: sender requires permission");
+        require(hasRole(adminAccessRole, _msgSender()), "AdminAccessControlHelper: sender requires permission");
         _;
     }
 
     // ==== VIEWS ====
     function isAdmin(address account) external view returns (bool) {
-        return hasRole(ADMIN_ACCESS_ROLE, account);
+        return hasRole(adminAccessRole, account);
     }
 
     // ==== MUTABLES ====
     function transferAdmin(address newAdmin) external onlyAdmin {
         require(newAdmin != address(0), "AdminAccessControlHelper: zero address given for new operator");
 
-        grantRole(ADMIN_ACCESS_ROLE, newAdmin);
-        revokeRole(ADMIN_ACCESS_ROLE, _admin);
+        grantRole(adminAccessRole, newAdmin);
+        revokeRole(adminAccessRole, _admin);
 
         _admin = newAdmin;
     }
