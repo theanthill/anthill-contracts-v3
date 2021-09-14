@@ -7,6 +7,7 @@ pragma solidity =0.7.6;
 import "../core/LiquidityStakingHelper.sol";
 
 contract BUSDANTPoolHelper is LiquidityStakingHelper {
+    /* solhint-disable no-empty-blocks */
     constructor(
         IERC20 token0_,
         IERC20 token1_,
@@ -28,4 +29,5 @@ contract BUSDANTPoolHelper is LiquidityStakingHelper {
             stakerHelper_
         )
     {}
+    /* solhint-disable no-empty-blocks */
 }

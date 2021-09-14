@@ -44,9 +44,9 @@ $ npm migrate:local-testnet
 
 Basis is an algorithmic stablecoin protocol where the money supply is dynamically adjusted to meet changes in money demand.
 
-- When demand is rising, the blockchain will create more Basis Gold. The expanded supply is designed to bring the Basis price back down.
-- When demand is falling, the blockchain will buy back Basis Gold. The contracted supply is designed to restore Basis price.
-- The Basis protocol is designed to expand and contract supply similarly to the way central banks buy and sell fiscal debt to stabilize purchasing power. For this reason, we refer to Basis Gold as having an algorithmic central bank.
+-   When demand is rising, the blockchain will create more Basis Gold. The expanded supply is designed to bring the Basis price back down.
+-   When demand is falling, the blockchain will buy back Basis Gold. The contracted supply is designed to restore Basis price.
+-   The Basis protocol is designed to expand and contract supply similarly to the way central banks buy and sell fiscal debt to stabilize purchasing power. For this reason, we refer to Basis Gold as having an algorithmic central bank.
 
 Read the [Basis Whitepaper](http://basis.io/basis_whitepaper_en.pdf) for more details into the protocol.
 

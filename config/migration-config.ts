@@ -8,32 +8,30 @@ export const TREASURY_ANT_ALLOCATION = 5000000;
 // Maximum total amount of Ant Shares to be pre-minted
 export const MAX_ANTS_SUPPLY = 21000000;
 
-// ANT-BUSD LP Tokens pool that generate ANT Token rewards
-export const ANTBUSDLPTokenPool = {
-    contractName: 'BUSDANTPoolStakerANT',
-    helperContract: 'BUSDANTPoolHelper',
-    mainToken: 'AntToken',
-    otherToken: 'MockBUSD',
-};
+export interface StakingPoolConfig {
+    contractName: string;
+    helperContract: string;
+    mainToken: string;
+    otherToken: string;
+}
 
-// ANT-BNB LP Tokens pool that generate ANT Token rewards
-export const ANTBNBLPTokenPool = {
-    contractName: 'BNBANTLPTokenANTPool',
-    helperContract: 'BNBANTPoolHelper',
-    mainToken: 'AntToken',
-    otherToken: 'BNB',
+// ANT-BUSD LP Tokens pool that generate ANT Token rewards
+export const ANTBUSDLPTokenPool: StakingPoolConfig = {
+    contractName: "BUSDANTPoolStakerANT",
+    helperContract: "BUSDANTPoolHelper",
+    mainToken: "AntToken",
+    otherToken: "MockBUSD",
 };
 
 // ANT-ETH LP Tokens pool that generate ANT Token rewards
-export const ANTETHLPTokenPool = {
-    contractName: 'ETHANTPoolStakerANT',
-    helperContract: 'ETHANTPoolHelper',
-    mainToken: 'AntToken',
-    otherToken: 'MockETH',
+export const ANTETHLPTokenPool: StakingPoolConfig = {
+    contractName: "ETHANTPoolStakerANT",
+    helperContract: "ETHANTPoolHelper",
+    mainToken: "AntToken",
+    otherToken: "MockETH",
 };
 
-export const INITIAL_BSC_DEPLOYMENT_POOLS = [ANTBUSDLPTokenPool, ANTBNBLPTokenPool];
-export const INITIAL_ETH_DEPLOYMENT_POOLS = [ANTBUSDLPTokenPool, ANTETHLPTokenPool];
+export const INITIAL_ETH_DEPLOYMENT_POOLS: StakingPoolConfig[] = [ANTBUSDLPTokenPool, ANTETHLPTokenPool];
 
 // Price range for the liquidity pools
 export const PRICE_LOWER = 0.9;
@@ -42,18 +40,18 @@ export const PRICE_UPPER = 1.1;
 // System accounts
 //
 // [workerant] Set the final values before mainnet deployment
-export const TREASURY_ACCOUNT = '';
-export const OPERATOR_ACCOUNT = '';
-export const ADMIN_ACCOUNT = '';
+export const TREASURY_ACCOUNT = "";
+export const OPERATOR_ACCOUNT = "";
+export const ADMIN_ACCOUNT = "";
 
 /**
  * Test configuration
  */
 // HQ Account used for testing
-export const TEST_TREASURY_ACCOUNT = '0xF9D5169aA864C1Ddda2Aba931Edf722f98B2D159';
-export const TEST_OPERATOR_ACCOUNT = '0x8a612956aBAF09C37e4372d7890835294080eb30';
-export const TEST_ADMIN_ACCOUNT = '0xF9D5169aA864C1Ddda2Aba931Edf722f98B2D159';
-export const TEST_HQ_ACCOUNT = '0x47Ce08590BdB1162EaDE736EfaAbf2aa2d5C8C92';
+export const TEST_TREASURY_ACCOUNT = "0xF9D5169aA864C1Ddda2Aba931Edf722f98B2D159";
+export const TEST_OPERATOR_ACCOUNT = "0x8a612956aBAF09C37e4372d7890835294080eb30";
+export const TEST_ADMIN_ACCOUNT = "0xF9D5169aA864C1Ddda2Aba931Edf722f98B2D159";
+export const TEST_HQ_ACCOUNT = "0x47Ce08590BdB1162EaDE736EfaAbf2aa2d5C8C92";
 
 // Amount of Ant Shares allocated for HQ at deploy
 export const TEST_HQ_ANTS_ALLOCATION = 2100000;

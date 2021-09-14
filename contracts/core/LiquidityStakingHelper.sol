@@ -35,8 +35,8 @@ contract LiquidityStakingHelper is Context, ERC721Enumerable, IERC721Receiver {
     INonfungiblePositionManager public positionManager;
     IUniswapV3Staker public poolStaker;
     IPoolStakerV3WithRewards public stakerHelper;
-    mapping(uint256 => uint256) tokenIdIndex; /* tokenId => stakes index */
-    uint256[] stakes; /* tokenId */
+    mapping(uint256 => uint256) public tokenIdIndex; /* tokenId => stakes index */
+    uint256[] public stakes; /* tokenId */
 
     /* ========== CONSTRUCTOR ========== */
     constructor(

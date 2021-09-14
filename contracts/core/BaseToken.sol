@@ -24,7 +24,10 @@ interface IBaseToken {
  */
 contract BaseToken is ERC20Burnable, OperatorAccessControl {
     /* ========== CONSTRUCTOR ========== */
+    /* solhint-disable no-empty-blocks */
     constructor(string memory name_, string memory symbol_) ERC20(name_, symbol_) {}
+
+    /* solhint-disable no-empty-blocks */
 
     /* ========== MUTABLES ========== */
     function mint(address recipient_, uint256 amount_) external onlyOperator {

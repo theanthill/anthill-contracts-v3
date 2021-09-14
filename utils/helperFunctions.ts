@@ -1,12 +1,12 @@
-import {BigNumber} from 'ethers';
-import JSBI from 'jsbi';
-import {sqrt} from './sqrt';
-import {TickMath} from './TickMath';
+import { BigNumber } from "ethers";
+import JSBI from "jsbi";
+import { sqrt } from "./sqrt";
+import { TickMath } from "./TickMath";
 
 /**
  * The default factory tick spacings by fee amount.
  */
-export const TICK_SPACINGS: {[key: number]: number} = {
+export const TICK_SPACINGS: { [key: number]: number } = {
     [500]: 10,
     [3000]: 60,
     [10000]: 200,

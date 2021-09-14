@@ -9,10 +9,12 @@ pragma solidity =0.7.6;
 import "../core/PoolStakerV3WithRewards.sol";
 
 contract ETHANTPoolStakerANT is PoolStakerV3WithRewards {
+    /* solhint-disable no-empty-blocks */
     constructor(
         IUniswapV3Staker poolStaker_,
         IUniswapV3Pool pool_,
         IERC20Minimal rewardToken_,
         address refundee_
     ) PoolStakerV3WithRewards(poolStaker_, pool_, rewardToken_, refundee_) {}
+    /* solhint-disable no-empty-blocks */
 }

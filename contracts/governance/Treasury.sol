@@ -90,7 +90,7 @@ contract Treasury is ContractGuard, EpochCounter {
         try oracle.priceTWAP(antToken) returns (uint256 price) {
             return price;
         } catch {
-            revert("Treasury: failed to consult Ant Token swap price from the oracle");
+            revert("Treasury: swap price consultation");
         }
     }
 
@@ -98,7 +98,7 @@ contract Treasury is ContractGuard, EpochCounter {
         try oracle.priceDollar() returns (uint256 price) {
             return price;
         } catch {
-            revert("Treasury: failed to consult Ant Token external price from the oracle");
+            revert("Treasury: external price consultation");
         }
     }
 
@@ -114,6 +114,7 @@ contract Treasury is ContractGuard, EpochCounter {
 
     function migrate(address target) public onlyOperator checkOperator {
         require(!migrated, "Treasury: migrated");
+        migrated = true;
 
         // Ant Token
         IOperatorAccessControl(antToken).transferOperator(target);
@@ -127,7 +128,6 @@ contract Treasury is ContractGuard, EpochCounter {
         IOperatorAccessControl(antShare).transferOperator(target);
         IERC20(antShare).transfer(target, IERC20(antShare).balanceOf(address(this)));
 
-        migrated = true;
         emit Migration(target);
     }
 
@@ -147,6 +147,7 @@ contract Treasury is ContractGuard, EpochCounter {
         Calls the orable to update the latest price
     */
     function _updateAntTokenPrice() internal {
+        /* solhint-disable-next-line no-empty-blocks */
         try oracle.update() {} catch {
             // Update will revert if called twice in less than the allocated period, so
             // just ignore the error if that happens

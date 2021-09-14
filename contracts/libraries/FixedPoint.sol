@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-pragma solidity >=0.4.0;
+pragma solidity >=0.7.6;
 
 import "./Babylonian.sol";
 
@@ -7,12 +7,14 @@ import "./Babylonian.sol";
 library FixedPoint {
     // range: [0, 2**112 - 1]
     // resolution: 1 / 2**112
+    /* solhint-disable-next-line contract-name-camelcase */
     struct uq112x112 {
         uint224 _x;
     }
 
     // range: [0, 2**144 - 1]
     // resolution: 1 / 2**112
+    /* solhint-disable-next-line contract-name-camelcase */
     struct uq144x112 {
         uint256 _x;
     }
