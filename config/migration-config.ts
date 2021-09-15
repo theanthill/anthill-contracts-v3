@@ -15,12 +15,12 @@ export interface StakingPoolConfig {
     otherToken: string;
 }
 
-// ANT-BUSD LP Tokens pool that generate ANT Token rewards
-export const ANTBUSDLPTokenPool: StakingPoolConfig = {
-    contractName: "BUSDANTPoolStakerANT",
-    helperContract: "BUSDANTPoolHelper",
+// ANT-USDC LP Tokens pool that generate ANT Token rewards
+export const ANTUSDCLPTokenPool: StakingPoolConfig = {
+    contractName: "USDCANTPoolStakerANT",
+    helperContract: "USDCANTPoolHelper",
     mainToken: "AntToken",
-    otherToken: "MockBUSD",
+    otherToken: "MockUSDC",
 };
 
 // ANT-ETH LP Tokens pool that generate ANT Token rewards
@@ -31,7 +31,7 @@ export const ANTETHLPTokenPool: StakingPoolConfig = {
     otherToken: "MockETH",
 };
 
-export const INITIAL_ETH_DEPLOYMENT_POOLS: StakingPoolConfig[] = [ANTBUSDLPTokenPool, ANTETHLPTokenPool];
+export const INITIAL_ETH_DEPLOYMENT_POOLS: StakingPoolConfig[] = [ANTUSDCLPTokenPool, ANTETHLPTokenPool];
 
 // Price range for the liquidity pools
 export const PRICE_LOWER = 0.9;
@@ -65,10 +65,10 @@ export const TEST_INITIAL_BNB_SUPPLY = 1000;
 // Amount of fake ETH tokens to be minted at deploy
 export const TEST_INITIAL_ETH_SUPPLY = 1000;
 
-// Amount of fake BUSD tokens to be minted at deploy
-export const TEST_INITIAL_BUSD_SUPPLY = 300000;
+// Amount of fake USDC tokens to be minted at deploy
+export const TEST_INITIAL_USDC_SUPPLY = 300000;
 
-// Amount of Ant Tokens allocated for the ANTBUSD liquidity pool
+// Amount of Ant Tokens allocated for the ANTUSDC liquidity pool
 export const TEST_ANT_LIQUIDITY_PER_POOL = 50000;
 
 // Maximum amount of tokens to refill from faucet

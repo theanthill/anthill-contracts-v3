@@ -15,7 +15,7 @@ export const OPERATOR_TIMELOCK_PERIOD = 2 * 86400; // 2 Days
 // Liquidity Fee
 export const LIQUIDITY_FEE = 3000;
 
-// Real networks with already deployed Swaps and BUSD
+// Real networks with already deployed Swaps and USDC
 export const LOCAL_NETWORKS = ["hardhat", "localhost"];
 export const TEST_NETWORKS = ["rinkeby", "arb-rinkeby"];
 export const MAIN_NETWORKS = ["mainnet", "arbitrum"];

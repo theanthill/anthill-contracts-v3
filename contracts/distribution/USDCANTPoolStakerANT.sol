@@ -8,7 +8,7 @@ pragma solidity =0.7.6;
 
 import "../core/PoolStakerV3WithRewards.sol";
 
-contract BUSDANTPoolStakerANT is PoolStakerV3WithRewards {
+contract USDCANTPoolStakerANT is PoolStakerV3WithRewards {
     /* solhint-disable no-empty-blocks */
     constructor(
         IUniswapV3Staker poolStaker_,

@@ -7,7 +7,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 
 import { MAIN_NETWORKS } from "../deploy.config";
 import {
-    TEST_INITIAL_BUSD_SUPPLY,
+    TEST_INITIAL_USDC_SUPPLY,
     TEST_INITIAL_ETH_SUPPLY,
     TEST_FAUCET_MAX_REFILL,
     TEST_FAUCET_INITIAL_ALLOCATION,
@@ -19,7 +19,7 @@ import {
 
 import { BigNumber } from "@ethersproject/bignumber";
 
-import { MockETH, MockBUSD, AntToken } from "../typechain";
+import { MockETH, MockUSDC, AntToken } from "../typechain";
 
 const tags: string[] = [];
 
@@ -36,17 +36,17 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     console.log("[TEST: Deploy mockup contracts]");
     const unit = BigNumber.from(10).pow(18);
 
-    // BUSD
-    console.log("  - Deploy MockBUSD");
-    const busdInitialAllocation = unit.mul(TEST_INITIAL_BUSD_SUPPLY);
-    await deploy("MockBUSD", {
+    // USDC
+    console.log("  - Deploy MockUSDC");
+    const busdInitialAllocation = unit.mul(TEST_INITIAL_USDC_SUPPLY);
+    await deploy("MockUSDC", {
         from: deployer,
         log: true,
     });
-    const mockBUSD = (await ethers.getContract("MockBUSD")) as MockBUSD;
-    await mockBUSD.mint(deployer, busdInitialAllocation).then(tx => tx.wait());
+    const mockUSDC = (await ethers.getContract("MockUSDC")) as MockUSDC;
+    await mockUSDC.mint(deployer, busdInitialAllocation).then(tx => tx.wait());
 
-    tags.push("MockBUSD");
+    tags.push("MockUSDC");
 
     // ETH
     console.log("  - Deploy MockETH");
@@ -56,7 +56,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     });
 
     const ethInitialAllocation = unit.mul(TEST_INITIAL_ETH_SUPPLY);
-    const mockETH = (await ethers.getContract("MockBUSD")) as MockETH;
+    const mockETH = (await ethers.getContract("MockUSDC")) as MockETH;
 
     await mockETH.mint(deployer, ethInitialAllocation).then(tx => tx.wait());
 
@@ -74,7 +74,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         log: true,
         args: [
             antToken.address,
-            mockBUSD.address,
+            mockUSDC.address,
             mockETH.address,
             faucetMaxRefill,
             [TEST_TREASURY_ACCOUNT, TEST_OPERATOR_ACCOUNT, TEST_ADMIN_ACCOUNT, TEST_HQ_ACCOUNT],
@@ -82,7 +82,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     });
 
     await antToken.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
-    await mockBUSD.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
+    await mockUSDC.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
     await mockETH.mint(tokenFaucet.address, faucetInitialAllocation).then(tx => tx.wait());
 
     tags.push("TokenFaucet");

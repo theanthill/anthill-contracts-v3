@@ -16,7 +16,7 @@ import {
     LIQUIDITY_FEE,
 } from "../deploy.config";
 
-import { AntBond, AntShare, AntToken, IUniswapV3Factory, MockBUSD, MockStdReference } from "../typechain";
+import { AntBond, AntShare, AntToken, IUniswapV3Factory, MockUSDC, MockStdReference } from "../typechain";
 
 const tags: string[] = [];
 
@@ -33,10 +33,10 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     const antShare = (await ethers.getContract("AntShare")) as AntShare;
     const swapFactory = (await ethers.getContract("IUniswapV3Factory")) as IUniswapV3Factory;
     const bandOracle = (await ethers.getContract("MockStdReference")) as MockStdReference;
-    const mockBUSD = (await ethers.getContract("MockBUSD")) as MockBUSD;
+    const mockUSDC = (await ethers.getContract("MockUSDC")) as MockUSDC;
 
-    // Get the ANT/BUSD pair
-    const ANTBUSDPoolAddress = await swapFactory.getPool(antToken.address, mockBUSD.address, LIQUIDITY_FEE);
+    // Get the ANT/BUUSDCSD pair
+    const ANTUSDCPoolAddress = await swapFactory.getPool(antToken.address, mockUSDC.address, LIQUIDITY_FEE);
 
     // Deploy all governance contracts
     console.log("  - Deploy Boardroom");
@@ -50,7 +50,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     const oracle = await deploy("Oracle", {
         from: deployer,
         log: true,
-        args: [ANTBUSDPoolAddress, ORACLE_PERIOD, ORACLE_START_DATE, bandOracle.address],
+        args: [ANTUSDCPoolAddress, ORACLE_PERIOD, ORACLE_START_DATE, bandOracle.address],
     });
 
     console.log("  - Deploy ContributionPool");

@@ -49,7 +49,7 @@ async function addLiquidity(
     const otherToken = (await ethers.getContract(poolConfig.otherToken)) as BaseToken;
 
     // Get the price rate
-    const otherTokenRate = await oracle.getReferenceData(poolConfig.otherToken, "BUSD");
+    const otherTokenRate = await oracle.getReferenceData(poolConfig.otherToken, "USDC");
     const priceOtherToken = BigNumber.from(otherTokenRate.rate);
 
     const unit = BigNumber.from(10).pow(18);

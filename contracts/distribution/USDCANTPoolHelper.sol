@@ -2,11 +2,11 @@
 pragma solidity =0.7.6;
 
 /**
-    Helper for providing liquidity to a the ANT-BUSD pool
+    Helper for providing liquidity to a the ANT-USDC pool
  */
 import "../core/LiquidityStakingHelper.sol";
 
-contract BUSDANTPoolHelper is LiquidityStakingHelper {
+contract USDCANTPoolHelper is LiquidityStakingHelper {
     /* solhint-disable no-empty-blocks */
     constructor(
         IERC20 token0_,

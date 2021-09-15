@@ -42,8 +42,8 @@ contract Oracle is IOracle, EpochCounter {
     using FixedPoint for *;
 
     // Constants
-    string public constant EXTERNAL_ORACLE_BASE = "BUSD";
-    string public constant EXTERNAL_ORACLE_QUOTE = "USDC";
+    string public constant EXTERNAL_ORACLE_BASE = "USDC";
+    string public constant EXTERNAL_ORACLE_QUOTE = "USDT";
 
     // Immutables
     IUniswapV3Pool public immutable pool;
@@ -122,7 +122,7 @@ contract Oracle is IOracle, EpochCounter {
     }
 
     /**
-        Returns the latest known price from the external oracle for the BUSD/USDT pair
+        Returns the latest known price from the external oracle for the USDC/USDT pair
 
         @return price  Latest external price of the token multiplied by 1e18
     */

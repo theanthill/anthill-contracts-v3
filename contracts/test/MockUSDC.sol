@@ -3,7 +3,7 @@ pragma solidity =0.7.6;
 
 import "../core/BaseToken.sol";
 
-contract MockBNB is BaseToken {
+contract MockUSDC is BaseToken {
     /* solhint-disable-next-line no-empty-blocks */
-    constructor() BaseToken("BNB", "BNB") {}
+    constructor() BaseToken("USDC", "USDC") {}
 }

@@ -9,12 +9,12 @@ contract MockStdReference is IStdReference {
 
     bytes32 public encodedANT;
     bytes32 public encodedBNB;
-    bytes32 public encodedBUSD;
+    bytes32 public encodedUSDC;
 
     constructor() {
         encodedANT = keccak256(abi.encodePacked("ANT"));
         encodedBNB = keccak256(abi.encodePacked("BNB"));
-        encodedBUSD = keccak256(abi.encodePacked("BUSD"));
+        encodedUSDC = keccak256(abi.encodePacked("USDC"));
     }
 
     /// Returns the price data for the given base/quote pair. Revert if not available.
@@ -34,7 +34,7 @@ contract MockStdReference is IStdReference {
             data.rate = 300 * 1e18;
             data.lastUpdatedBase = 0;
             data.lastUpdatedQuote = 0;
-        } else if (encodedBase == encodedBUSD) {
+        } else if (encodedBase == encodedUSDC) {
             data.rate = 1e18;
             data.lastUpdatedBase = 0;
             data.lastUpdatedQuote = 0;
