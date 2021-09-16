@@ -7,7 +7,7 @@
         "clean": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat clean",
         "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain",
         "compile": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat compile",
-        "deploy:local": "hardhat deploy --silent --network localhost --export deployments/localhost.deployments.json",
+        "deploy:local": "hardhat deploy --network localhost --export deployments/localhost.deployments.json",
         "deploy:rinkeby": "hardhat deploy --silent --network rinkeby --export deployments/rinkeby.deployments.json",
         "deploy:arb-rinkeby": "hardhat deploy --silent --network arb-rinkeby --export deployments/arb-rinkeby.deployments.json",
         "localnode": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat node",
