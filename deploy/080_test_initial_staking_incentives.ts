@@ -39,7 +39,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
         await antToken.mint(pool.address, rewardPerPool).then(tx => tx.wait());
 
         const YEAR = 365 * 86400;
-        const Now = Math.round(Date.now() / 1000) + 180;
+        const Now = Math.round(Date.now() / 1000) + 60;
         const YearFromNow = Now + YEAR;
 
         console.log(

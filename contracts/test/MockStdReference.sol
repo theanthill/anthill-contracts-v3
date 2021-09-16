@@ -8,12 +8,12 @@ contract MockStdReference is IStdReference {
     uint256 public testRate = 1e18;
 
     bytes32 public encodedANT;
-    bytes32 public encodedBNB;
+    bytes32 public encodedETH;
     bytes32 public encodedUSDC;
 
     constructor() {
         encodedANT = keccak256(abi.encodePacked("ANT"));
-        encodedBNB = keccak256(abi.encodePacked("BNB"));
+        encodedETH = keccak256(abi.encodePacked("ETH"));
         encodedUSDC = keccak256(abi.encodePacked("USDC"));
     }
 
@@ -30,8 +30,8 @@ contract MockStdReference is IStdReference {
             data.rate = testRate;
             data.lastUpdatedBase = 0;
             data.lastUpdatedQuote = 0;
-        } else if (encodedBase == encodedBNB) {
-            data.rate = 300 * 1e18;
+        } else if (encodedBase == encodedETH) {
+            data.rate = 1500 * 1e18;
             data.lastUpdatedBase = 0;
             data.lastUpdatedQuote = 0;
         } else if (encodedBase == encodedUSDC) {
