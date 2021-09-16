@@ -47,17 +47,15 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
 
         let sqrtPriceX96;
         if (antToken.address < otherToken.address) {
-            console.log(`OP1 Ant Price: ${priceAntToken.toString()}, Other Price: ${priceOtherToken.toString()}`);
             sqrtPriceX96 = encodeSqrtRatioX96(priceAntToken, priceOtherToken);
         } else {
-            console.log(`OP2 Ant Price: ${priceAntToken.toString()}, Other Price: ${priceOtherToken.toString()}`);
             sqrtPriceX96 = encodeSqrtRatioX96(priceOtherToken, priceAntToken);
         }
 
         const tick = TickMath.getTickAtSqrtRatio(sqrtPriceX96);
 
-        console.log(`Tick ${tick} for ${poolConfig.contractName}`);
-        console.log(`Price ${sqrtPriceX96} for ${poolConfig.contractName}`);
+        console.log(`      - Tick ${tick}`);
+        console.log(`      - Price ${sqrtPriceX96}`);
 
         await pool.initialize(sqrtPriceX96.toString()).then(tx => tx.wait());
         await pool.increaseObservationCardinalityNext(16).then(tx => tx.wait());
