@@ -1,0 +1,243 @@
+{
+  "address": "0x9247c834d641E141dEdcf0e415ef268cB0755Ab1",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "encodedANT",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "encodedETH",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "encodedUSDC",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_base",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "getReferenceData",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "rate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastUpdatedBase",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastUpdatedQuote",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IStdReference.ReferenceData",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string[]",
+          "name": "_bases",
+          "type": "string[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "_quotes",
+          "type": "string[]"
+        }
+      ],
+      "name": "getReferenceDataBulk",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "rate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastUpdatedBase",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastUpdatedQuote",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IStdReference.ReferenceData[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "rate",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTestRate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "testRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x2e5a6add255934f07f19f928562c01934b6d7169e90613aea76304940cfa47b6",
+  "receipt": {
+    "to": null,
+    "from": "0xc892cfd3e75Cf428BDD25576e9a42D515697B2C7",
+    "contractAddress": "0x9247c834d641E141dEdcf0e415ef268cB0755Ab1",
+    "transactionIndex": 0,
+    "gasUsed": "13109217",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x7152adfe75a9c7e488278cbada1b5a476db609c46df3bd889caaa961d6a3a16c",
+    "transactionHash": "0x2e5a6add255934f07f19f928562c01934b6d7169e90613aea76304940cfa47b6",
+    "logs": [],
+    "blockNumber": 4664762,
+    "cumulativeGasUsed": "9670717",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "0076c8813888b7e0fbbcdc51edc3fbf9",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"encodedANT\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"encodedETH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"encodedUSDC\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_base\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"getReferenceData\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdatedBase\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdatedQuote\",\"type\":\"uint256\"}],\"internalType\":\"struct IStdReference.ReferenceData\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string[]\",\"name\":\"_bases\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"_quotes\",\"type\":\"string[]\"}],\"name\":\"getReferenceDataBulk\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdatedBase\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdatedQuote\",\"type\":\"uint256\"}],\"internalType\":\"struct IStdReference.ReferenceData[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"}],\"name\":\"setTestRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"testRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getReferenceData(string,string)\":{\"notice\":\"Returns the price data for the given base/quote pair. Revert if not available.\"},\"getReferenceDataBulk(string[],string[])\":{\"notice\":\"Similar to getReferenceData, but with multiple base/quote pairs at once.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/test/MockStdReference.sol\":\"MockStdReference\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":800},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IStdReference.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity =0.7.6;\\npragma abicoder v2;\\n\\ninterface IStdReference {\\n    /// A structure returned whenever someone requests for standard reference data.\\n    struct ReferenceData {\\n        uint256 rate; // base/quote exchange rate, multiplied by 1e18.\\n        uint256 lastUpdatedBase; // UNIX epoch of the last time when base price gets updated.\\n        uint256 lastUpdatedQuote; // UNIX epoch of the last time when quote price gets updated.\\n    }\\n\\n    /// Returns the price data for the given base/quote pair. Revert if not available.\\n    function getReferenceData(string memory _base, string memory _quote) external view returns (ReferenceData memory);\\n\\n    /// Similar to getReferenceData, but with multiple base/quote pairs at once.\\n    function getReferenceDataBulk(string[] memory _bases, string[] memory _quotes)\\n        external\\n        view\\n        returns (ReferenceData[] memory);\\n}\\n\",\"keccak256\":\"0x648d70a273f88c5ca7718f3d35aad3938e2bb8143817d3c98303235499f98049\",\"license\":\"MIT\"},\"contracts/test/MockStdReference.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity =0.7.6;\\npragma abicoder v2;\\n\\nimport \\\"../interfaces/IStdReference.sol\\\";\\n\\ncontract MockStdReference is IStdReference {\\n    uint256 public testRate = 1e18;\\n\\n    bytes32 public encodedANT;\\n    bytes32 public encodedETH;\\n    bytes32 public encodedUSDC;\\n\\n    constructor() {\\n        encodedANT = keccak256(abi.encodePacked(\\\"ANT\\\"));\\n        encodedETH = keccak256(abi.encodePacked(\\\"ETH\\\"));\\n        encodedUSDC = keccak256(abi.encodePacked(\\\"USDC\\\"));\\n    }\\n\\n    /// Returns the price data for the given base/quote pair. Revert if not available.\\n    function getReferenceData(\\n        string memory _base,\\n        string memory /*_quote*/\\n    ) public view override returns (ReferenceData memory) {\\n        ReferenceData memory data;\\n\\n        bytes32 encodedBase = keccak256(abi.encodePacked(_base));\\n\\n        if (encodedBase == encodedANT) {\\n            data.rate = testRate;\\n            data.lastUpdatedBase = 0;\\n            data.lastUpdatedQuote = 0;\\n        } else if (encodedBase == encodedETH) {\\n            data.rate = 1500 * 1e18;\\n            data.lastUpdatedBase = 0;\\n            data.lastUpdatedQuote = 0;\\n        } else if (encodedBase == encodedUSDC) {\\n            data.rate = 1e18;\\n            data.lastUpdatedBase = 0;\\n            data.lastUpdatedQuote = 0;\\n        } else {\\n            data.rate = 1e18;\\n            data.lastUpdatedBase = 0;\\n            data.lastUpdatedQuote = 0;\\n        }\\n\\n        return data;\\n    }\\n\\n    /// Similar to getReferenceData, but with multiple base/quote pairs at once.\\n    function getReferenceDataBulk(string[] memory _bases, string[] memory _quotes)\\n        external\\n        view\\n        override\\n        returns (ReferenceData[] memory)\\n    {\\n        ReferenceData[] memory data = new ReferenceData[](_bases.length);\\n\\n        for (uint256 i = 0; i < data.length; ++i) {\\n            data[i] = getReferenceData(_bases[i], _quotes[i]);\\n        }\\n\\n        return data;\\n    }\\n\\n    function setTestRate(uint256 rate) external {\\n        testRate = rate;\\n    }\\n}\\n\",\"keccak256\":\"0x1d4c9fa7b1012ad584ff8d3911d208c3a026c65e104caa5bc50f2cc55a0a039f\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080604052670de0b6b3a764000060005534801561001c57600080fd5b5060405160200161002c90610098565b60408051601f1981840301815290829052805160209182012060015561005291016100a7565b60408051601f1981840301815290829052805160209182012060025561007891016100b6565b60408051601f1981840301815291905280516020909101206003556100c6565b6210539560ea1b815260030190565b6208aa8960eb1b815260030190565b635553444360e01b815260040190565b610562806100d56000396000f3fe608060405234801561001057600080fd5b506004361061007d5760003560e01c80638f5c70461161005b5780638f5c7046146100c8578063beb462d9146100d0578063ca9ef595146100e5578063e42a071b146100ed5761007d565b80630bb3d0d814610082578063136462b9146100a057806365555bcc146100a8575b600080fd5b61008a61010d565b604051610097919061051a565b60405180910390f35b61008a610113565b6100bb6100b636600461040b565b610119565b6040516100979190610523565b61008a6101ea565b6100e36100de366004610462565b6101f0565b005b61008a6101f5565b6101006100fb3660046103aa565b6101fb565b60405161009791906104cc565b60005481565b60015481565b6101216102af565b6101296102af565b60008460405160200161013c9190610493565b604051602081830303815290604052805190602001209050600154811415610175576000805483526020830181905260408301526101e0565b60025481141561019e57685150ae84a8cdf00000825260006020830181905260408301526101e0565b6003548114156101c657670de0b6b3a7640000825260006020830181905260408301526101e0565b670de0b6b3a7640000825260006020830181905260408301525b5090505b92915050565b60025481565b600055565b60035481565b60606000835167ffffffffffffffff8111801561021757600080fd5b5060405190808252806020026020018201604052801561025157816020015b61023e6102af565b8152602001906001900390816102365790505b50905060005b81518110156101e05761029085828151811061026f57fe5b602002602001015185838151811061028357fe5b6020026020010151610119565b82828151811061029c57fe5b6020908102919091010152600101610257565b60405180606001604052806000815260200160008152602001600081525090565b600082601f8301126102e0578081fd5b8135602067ffffffffffffffff8211156102f657fe5b6103038182840201610531565b82815281810190858301855b8581101561033857610326898684358b0101610345565b8452928401929084019060010161030f565b5090979650505050505050565b600082601f830112610355578081fd5b813567ffffffffffffffff81111561036957fe5b61037c601f8201601f1916602001610531565b818152846020838601011115610390578283fd5b816020850160208301379081016020019190915292915050565b600080604083850312156103bc578182fd5b823567ffffffffffffffff808211156103d3578384fd5b6103df868387016102d0565b935060208501359150808211156103f4578283fd5b50610401858286016102d0565b9150509250929050565b6000806040838503121561041d578182fd5b823567ffffffffffffffff80821115610434578384fd5b61044086838701610345565b93506020850135915080821115610455578283fd5b5061040185828601610345565b600060208284031215610473578081fd5b5035919050565b8051825260208082015190830152604090810151910152565b60008251815b818110156104b35760208186018101518583015201610499565b818111156104c15782828501525b509190910192915050565b6020808252825182820181905260009190848201906040850190845b8181101561050e576104fb83855161047a565b92840192606092909201916001016104e8565b50909695505050505050565b90815260200190565b606081016101e4828461047a565b60405181810167ffffffffffffffff8111828210171561054d57fe5b60405291905056fea164736f6c6343000706000a",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061007d5760003560e01c80638f5c70461161005b5780638f5c7046146100c8578063beb462d9146100d0578063ca9ef595146100e5578063e42a071b146100ed5761007d565b80630bb3d0d814610082578063136462b9146100a057806365555bcc146100a8575b600080fd5b61008a61010d565b604051610097919061051a565b60405180910390f35b61008a610113565b6100bb6100b636600461040b565b610119565b6040516100979190610523565b61008a6101ea565b6100e36100de366004610462565b6101f0565b005b61008a6101f5565b6101006100fb3660046103aa565b6101fb565b60405161009791906104cc565b60005481565b60015481565b6101216102af565b6101296102af565b60008460405160200161013c9190610493565b604051602081830303815290604052805190602001209050600154811415610175576000805483526020830181905260408301526101e0565b60025481141561019e57685150ae84a8cdf00000825260006020830181905260408301526101e0565b6003548114156101c657670de0b6b3a7640000825260006020830181905260408301526101e0565b670de0b6b3a7640000825260006020830181905260408301525b5090505b92915050565b60025481565b600055565b60035481565b60606000835167ffffffffffffffff8111801561021757600080fd5b5060405190808252806020026020018201604052801561025157816020015b61023e6102af565b8152602001906001900390816102365790505b50905060005b81518110156101e05761029085828151811061026f57fe5b602002602001015185838151811061028357fe5b6020026020010151610119565b82828151811061029c57fe5b6020908102919091010152600101610257565b60405180606001604052806000815260200160008152602001600081525090565b600082601f8301126102e0578081fd5b8135602067ffffffffffffffff8211156102f657fe5b6103038182840201610531565b82815281810190858301855b8581101561033857610326898684358b0101610345565b8452928401929084019060010161030f565b5090979650505050505050565b600082601f830112610355578081fd5b813567ffffffffffffffff81111561036957fe5b61037c601f8201601f1916602001610531565b818152846020838601011115610390578283fd5b816020850160208301379081016020019190915292915050565b600080604083850312156103bc578182fd5b823567ffffffffffffffff808211156103d3578384fd5b6103df868387016102d0565b935060208501359150808211156103f4578283fd5b50610401858286016102d0565b9150509250929050565b6000806040838503121561041d578182fd5b823567ffffffffffffffff80821115610434578384fd5b61044086838701610345565b93506020850135915080821115610455578283fd5b5061040185828601610345565b600060208284031215610473578081fd5b5035919050565b8051825260208082015190830152604090810151910152565b60008251815b818110156104b35760208186018101518583015201610499565b818111156104c15782828501525b509190910192915050565b6020808252825182820181905260009190848201906040850190845b8181101561050e576104fb83855161047a565b92840192606092909201916001016104e8565b50909695505050505050565b90815260200190565b606081016101e4828461047a565b60405181810167ffffffffffffffff8111828210171561054d57fe5b60405291905056fea164736f6c6343000706000a",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getReferenceData(string,string)": {
+        "notice": "Returns the price data for the given base/quote pair. Revert if not available."
+      },
+      "getReferenceDataBulk(string[],string[])": {
+        "notice": "Similar to getReferenceData, but with multiple base/quote pairs at once."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 9427,
+        "contract": "contracts/test/MockStdReference.sol:MockStdReference",
+        "label": "testRate",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 9429,
+        "contract": "contracts/test/MockStdReference.sol:MockStdReference",
+        "label": "encodedANT",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_bytes32"
+      },
+      {
+        "astId": 9431,
+        "contract": "contracts/test/MockStdReference.sol:MockStdReference",
+        "label": "encodedETH",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_bytes32"
+      },
+      {
+        "astId": 9433,
+        "contract": "contracts/test/MockStdReference.sol:MockStdReference",
+        "label": "encodedUSDC",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_bytes32"
+      }
+    ],
+    "types": {
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
