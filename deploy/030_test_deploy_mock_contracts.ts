@@ -56,7 +56,7 @@ const deployStep: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
     });
 
     const ethInitialAllocation = unit.mul(TEST_INITIAL_ETH_SUPPLY);
-    const mockETH = (await ethers.getContract("MockUSDC")) as MockETH;
+    const mockETH = (await ethers.getContract("MockETH")) as MockETH;
 
     await mockETH.mint(deployer, ethInitialAllocation).then(tx => tx.wait());
 
