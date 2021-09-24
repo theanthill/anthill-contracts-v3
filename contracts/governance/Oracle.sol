@@ -8,6 +8,8 @@ pragma abicoder v2;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import "@uniswap/v3-core/contracts/libraries/TickMath.sol";
+import "@uniswap/v3-core/contracts/libraries/FixedPoint96.sol";
 
 //import "../libraries/PancakeOracleLibrary.sol";
 import "../libraries/FixedPoint.sol";
@@ -39,6 +41,7 @@ interface IOracle {
 contract Oracle is IOracle, EpochCounter {
     /* ========== STATE ======== */
     using SafeMath for uint256;
+    using SafeMath for uint160;
     using FixedPoint for *;
 
     // Constants
@@ -51,14 +54,8 @@ contract Oracle is IOracle, EpochCounter {
     address public immutable token1;
     IStdReference public immutable bandOracle;
 
-    // Latest price from PancakeSwap
-    uint256 public price0CumulativeLast;
-    uint256 public price1CumulativeLast;
-    uint32 public blockTimestampLast;
-
     // TWAP for an epoch period
-    FixedPoint.uq112x112 public price0Average;
-    FixedPoint.uq112x112 public price1Average;
+    uint160 public averageSqrtPriceX96;
 
     constructor(
         IUniswapV3Pool _pool,
@@ -73,34 +70,37 @@ contract Oracle is IOracle, EpochCounter {
 
         bandOracle = _bandOracle;
 
-        //price0CumulativeLast = _pair.price0CumulativeLast();
-        //price1CumulativeLast = _pair.price1CumulativeLast();
-
-        //(, , blockTimestampLast) = _pair.getReserves();
+        (averageSqrtPriceX96, , , , , , ) = _pool.slot0();
     }
 
     /** 
-        Update the price from PancakeSwap
+        Update the price from Uniswap
 
-        @dev Updates 1-day EMA price from PancakeSwap
+        @dev Updates 1-day EMA price from Uniswap
     */
     /* solhint-disable no-empty-blocks */
     function update() external override checkEpoch {
         // Obtain the TWAP for the latest block
-        /*(uint256 price0Cumulative, uint256 price1Cumulative, uint32 blockTimestamp) = PancakeOracleLibrary
-        .currentCumulativePrices(address(pair));
-        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
 
-        // overflow is desired, casting never truncates
-        // cumulative price is in (uq112x112 price * seconds) units so we simply wrap it after division by time elapsed
-        price0Average = FixedPoint.uq112x112(uint224((price0Cumulative - price0CumulativeLast) / timeElapsed));
-        price1Average = FixedPoint.uq112x112(uint224((price1Cumulative - price1CumulativeLast) / timeElapsed));
+        (uint160 sqrtPriceX96, , uint16 observationIndex, uint16 observationCardinality, , , ) = pool.slot0();
 
-        price0CumulativeLast = price0Cumulative;
-        price1CumulativeLast = price1Cumulative;
-        blockTimestampLast = blockTimestamp;
+        uint16 oldestObservationIndex = (observationIndex + observationCardinality - 1) % observationCardinality;
+        (uint32 currentBlockTimestamp, int56 currentTickCumulative, , ) = pool.observations(observationIndex);
+        (uint32 oldestBlockTimestamp, int56 oldestTickCumulative, , bool oldestInitialized) = pool.observations(
+            oldestObservationIndex
+        );
 
-        emit Updated(price0CumulativeLast, price1CumulativeLast);*/
+        if (oldestInitialized && oldestBlockTimestamp != 0 && oldestBlockTimestamp != currentBlockTimestamp) {
+            int24 priceTick = int24(
+                (currentTickCumulative - oldestTickCumulative) / (currentBlockTimestamp - oldestBlockTimestamp)
+            );
+            averageSqrtPriceX96 = TickMath.getSqrtRatioAtTick(priceTick);
+        } else {
+            // We only have 1 current observation
+            averageSqrtPriceX96 = sqrtPriceX96;
+        }
+
+        emit Updated(averageSqrtPriceX96);
     }
 
     /* solhint-disable no-empty-blocks */
@@ -113,12 +113,7 @@ contract Oracle is IOracle, EpochCounter {
         @return price  Average price of the token multiplied by 1e18
     */
     function priceTWAP(address token) public view override returns (uint256 price) {
-        if (token == token0) {
-            price = price0Average.mul(1e18).decode144();
-        } else {
-            require(token == token1, "ExampleOracleSimple: INVALID_TOKEN");
-            price = price1Average.mul(1e18).decode144();
-        }
+        price = consult(token, 1e18);
     }
 
     /**
@@ -142,15 +137,21 @@ contract Oracle is IOracle, EpochCounter {
         percentage = priceTWAP(token).mul(1e18).div(priceDollar()).sub(1e18);
     }
 
-    function consult(address token, uint256 amountIn) external view override returns (uint256 amountOut) {
+    function consult(address token, uint256 amountIn) public view override returns (uint256 amountOut) {
+        uint256 shiftAmount = FixedPoint96.Q96.mul(FixedPoint96.Q96);
+        uint256 priceSquare = averageSqrtPriceX96.mul(averageSqrtPriceX96).mul(1e18);
+
+        uint256 price0 = priceSquare.div(shiftAmount);
+
         if (token == token0) {
-            amountOut = price0Average.mul(amountIn).decode144();
+            amountOut = amountIn.mul(price0).div(1e18);
         } else {
             require(token == token1, "ExampleOracleSimple: INVALID_TOKEN");
-            amountOut = price1Average.mul(amountIn).decode144();
+            uint256 price1 = uint256(1e36).div(price0);
+            amountOut = amountIn.mul(price1).div(1e18);
         }
     }
 
     /* ======= EVENTS ====== */
-    event Updated(uint256 price0CumulativeLast, uint256 price1CumulativeLast);
+    event Updated(uint160 averageSqrtPriceX96);
 }
