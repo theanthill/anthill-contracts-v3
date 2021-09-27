@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "analyze": "slither . --json slither-results.json",
         "clean": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat clean",
         "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain",
         "compile": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat compile",

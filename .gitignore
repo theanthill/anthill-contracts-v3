@@ -16,6 +16,7 @@ dist/
 lib/
 node_modules/
 typechain/
+.vscode
 
 # files
 *.env
